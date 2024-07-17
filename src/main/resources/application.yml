@@ -1,0 +1,73 @@
+spring:
+    application:
+        name: Tech Challenge - FIAP
+    profiles:
+        active: @spring.profiles.active@
+
+    output:
+        ansi:
+            enabled: ALWAYS
+
+    jpa:
+        open-in-view: false
+        properties:
+            hibernate:
+                format_sql: false
+                show_sql: true
+        hibernate:
+            ddl-auto: none
+
+    #Configuração do pool de conexões do Tomcat
+    tomcat:
+        initial-size: 5
+        max-active: 25
+
+springdoc:
+    swagger-ui:
+        path:/swagger-ui.html:
+
+logging:
+    level:
+        root: INFO
+
+---
+
+spring:
+    config:
+        activate:
+            on-profile: dev
+
+    datasource:
+        url: jdbc:postgresql://localhost:5433/techchallenge
+        username: techchallenge_usr
+        password: P0o9i8u7
+
+server:
+    port: 9090
+    servlet:
+        contextPath: /
+
+---
+spring:
+    config:
+        activate:
+            on-profile: prod
+    jpa:
+        properties:
+        hibernate:
+            format_sql: false
+            show_sql: false
+
+    datasource:
+        url: jdbc:postgresql://techchallenge_psql:5432/techchallenge
+        username: techchallenge_usr
+        password: P0o9i8u7
+
+server:
+    port: 8080
+    servlet:
+        contextPath: /
+
+logging:
+    level:
+        root: INFO
