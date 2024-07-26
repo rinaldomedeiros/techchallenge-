@@ -1,6 +1,5 @@
-package br.com.fiap.grupo14.techchallenge.dto;
+package br.com.fiap.grupo14.techchallenge2.adapter.dto;
 
-import br.com.fiap.grupo14.techchallenge.entities.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -9,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serial;
+
+import br.com.fiap.grupo14.techchallenge2.domain.entities.BaseEntity;
 
 @Builder
 @AllArgsConstructor

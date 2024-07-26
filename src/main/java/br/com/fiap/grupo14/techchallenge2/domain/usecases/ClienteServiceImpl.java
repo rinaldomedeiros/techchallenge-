@@ -1,9 +1,9 @@
-package br.com.fiap.grupo14.techchallenge.service.impl;
+package br.com.fiap.grupo14.techchallenge2.domain.usecases;
 
-import br.com.fiap.grupo14.techchallenge.dto.ClienteDTO;
-import br.com.fiap.grupo14.techchallenge.entities.Cliente;
-import br.com.fiap.grupo14.techchallenge.repository.ClienteRepository;
-import br.com.fiap.grupo14.techchallenge.service.ClienteService;
+import br.com.fiap.grupo14.techchallenge2.adapter.dto.ClienteDTO;
+import br.com.fiap.grupo14.techchallenge2.application.ports.in.ClienteService;
+import br.com.fiap.grupo14.techchallenge2.application.ports.out.ClienteRepository;
+import br.com.fiap.grupo14.techchallenge2.domain.entities.Cliente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.Getter;

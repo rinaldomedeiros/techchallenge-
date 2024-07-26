@@ -1,7 +1,8 @@
-package br.com.fiap.grupo14.techchallenge.service;
+package br.com.fiap.grupo14.techchallenge2.application.ports.in;
 
-import br.com.fiap.grupo14.techchallenge.dto.ClienteDTO;
 import org.springframework.data.domain.Page;
+
+import br.com.fiap.grupo14.techchallenge2.adapter.dto.ClienteDTO;
 
 
 public interface ClienteService {

@@ -1,7 +1,8 @@
-package br.com.fiap.grupo14.techchallenge.controller;
+package br.com.fiap.grupo14.techchallenge2.adapter.in.web;
 
-import br.com.fiap.grupo14.techchallenge.dto.ClienteDTO;
-import br.com.fiap.grupo14.techchallenge.service.ClienteService;
+import br.com.fiap.grupo14.techchallenge2.adapter.dto.ClienteDTO;
+import br.com.fiap.grupo14.techchallenge2.application.ports.in.ClienteService;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package br.com.fiap.grupo14.techchallenge.entities;
+package br.com.fiap.grupo14.techchallenge2.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
