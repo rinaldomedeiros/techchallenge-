@@ -1,4 +1,4 @@
-package br.com.fiap.grupo14.techchallenge2.domain.entities;
+package br.com.fiap.soat8.grp14.techchallenge.domain.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
