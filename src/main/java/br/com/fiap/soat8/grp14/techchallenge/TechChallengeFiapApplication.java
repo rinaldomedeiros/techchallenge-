@@ -1,4 +1,4 @@
-package br.com.fiap.grupo14.techchallenge2;
+package br.com.fiap.soat8.grp14.techchallenge;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

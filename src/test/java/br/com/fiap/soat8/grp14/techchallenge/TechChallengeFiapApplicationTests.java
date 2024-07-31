@@ -1,4 +1,4 @@
-package br.com.fiap.grupo14.techchallenge;
+package br.com.fiap.soat8.grp14.techchallenge;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
