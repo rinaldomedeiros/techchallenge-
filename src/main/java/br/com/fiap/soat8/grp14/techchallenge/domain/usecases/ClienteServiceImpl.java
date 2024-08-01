@@ -4,9 +4,6 @@ import br.com.fiap.soat8.grp14.techchallenge.adapter.dto.ClienteDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ClienteService;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ClienteRepositoryPort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.entities.Cliente;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
-
-    @PersistenceContext
-    private EntityManager manager;
-
-    @Getter
     @Autowired
     private ModelMapper modelMapper;
 
