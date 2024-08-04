@@ -1,6 +1,6 @@
-package br.com.fiap.soat8.grp14.techchallenge.adapter.in.web;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapter.dto.ClienteDTO;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ClienteDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ClienteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

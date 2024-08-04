@@ -1,6 +1,6 @@
-package br.com.fiap.soat8.grp14.techchallenge.adapter.out.persistence.impl;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.impl;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapter.out.persistence.ClienteSpringRepository;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.ClienteSpringRepository;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ClienteRepositoryPort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.entities.Cliente;
 import jakarta.persistence.EntityManager;
