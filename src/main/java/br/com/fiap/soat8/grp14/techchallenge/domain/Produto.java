@@ -5,6 +5,7 @@ import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
 
 public class Produto {
 
+    private Long id;
     private String nome;
     private String descricao;
     private Double valor;
@@ -13,14 +14,18 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String nome, String descricao, Double valor, CategoriaProduto categoriaProduto) {
+    public Produto(Long id, String nome, String descricao, Double valor, CategoriaProduto categoriaProduto) {
 
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
         this.categoriaProduto = categoriaProduto;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getNome() {
         return nome;
@@ -39,6 +44,7 @@ public class Produto {
     }
 
     public Produto(ProdutoDTO produtoDTO) {
+        this.id = produtoDTO.getId();
         this.nome = produtoDTO.getNome();
         this.descricao = produtoDTO.getDescricao();
         this.valor = produtoDTO.getValor();
@@ -46,17 +52,10 @@ public class Produto {
 
     }
 
-//    public void atualizarProduto(String nome, String descricao, double valor) {
-//
-//        this.nome = nome;
-//        this.descricao = descricao;
-//        this.valor = valor;
-//    }
-
 
     public ProdutoDTO toProdutoDTO() {
 
-        return new ProdutoDTO(this.nome, this.descricao, this.valor, this.categoriaProduto);
+        return new ProdutoDTO(this.id, this.nome, this.descricao, this.valor, this.categoriaProduto);
 
     }
 

@@ -8,11 +8,13 @@ public interface ProdutoRepositoryPort {
 
     List<Produto> buscarTodos();
 
-//    Produto buscarPorId(Long id);
-
     void salvarProduto(Produto produto);
-//
-//    void deletarProduto(Long id);
+
+    Produto buscarPorId(Long id);
+
+    void atualizarProduto (Long id, Produto produto);
+
+   void deletarProduto(Long id);
 
 
 }
