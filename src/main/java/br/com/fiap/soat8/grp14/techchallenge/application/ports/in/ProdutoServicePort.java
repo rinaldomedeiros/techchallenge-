@@ -5,15 +5,17 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;
 
-public interface ProdutoService {
+public interface ProdutoServicePort {
 
     List<ProdutoDTO> buscarProdutos();
 
+    ProdutoDTO buscarPorId(Long id);
+
     void salvarProduto(ProdutoDTO produtoDTO);
 
-//    void atualizarProduto(String nome, String descricao, double valor) throws ChangeSetPersister.NotFoundException;
-//
-//    void deletarProduto();
+    void atualizarProduto(Long id, ProdutoDTO produtoDTO) throws ChangeSetPersister.NotFoundException;
+
+    void deletarProduto(Long id);
 
 
 }
