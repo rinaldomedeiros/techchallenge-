@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.adapter.dto;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.dto;
 
 import lombok.*;
 

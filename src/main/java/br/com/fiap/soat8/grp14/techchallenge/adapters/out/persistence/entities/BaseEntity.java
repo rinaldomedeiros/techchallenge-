@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.domain.entities;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private Long id;
+    public Long id;
 
     public boolean isNew() {
         return this.id == null;

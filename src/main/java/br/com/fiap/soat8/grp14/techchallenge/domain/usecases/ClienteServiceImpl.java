@@ -1,9 +1,9 @@
 package br.com.fiap.soat8.grp14.techchallenge.domain.usecases;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapter.dto.ClienteDTO;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ClienteDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ClienteService;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ClienteRepositoryPort;
-import br.com.fiap.soat8.grp14.techchallenge.domain.entities.Cliente;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.ClienteEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     public List<ClienteDTO> listarTodos(Integer page, Integer linesPerPage, String orderBy, String direction)  {
-        List<Cliente> resultado = repository.listarTodos(page, linesPerPage, orderBy, direction);
+        List<ClienteEntity> resultado = repository.listarTodos(page, linesPerPage, orderBy, direction);
         return resultado.stream().map((element) -> modelMapper.map(element, ClienteDTO.class)).collect(Collectors.toList());
     }
 

@@ -1,6 +1,6 @@
 package br.com.fiap.soat8.grp14.techchallenge.application.ports.in;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapter.dto.ClienteDTO;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ClienteDTO;
 
 import java.util.List;
 
