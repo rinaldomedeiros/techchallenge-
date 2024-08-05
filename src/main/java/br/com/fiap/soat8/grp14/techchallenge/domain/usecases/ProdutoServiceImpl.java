@@ -3,7 +3,7 @@ package br.com.fiap.soat8.grp14.techchallenge.domain.usecases;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ProdutoRepositoryPort;
-import br.com.fiap.soat8.grp14.techchallenge.domain.Produto;
+import br.com.fiap.soat8.grp14.techchallenge.domain.models.Produto;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;

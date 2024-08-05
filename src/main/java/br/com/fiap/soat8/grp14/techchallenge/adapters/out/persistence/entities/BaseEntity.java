@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.domain.entities;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

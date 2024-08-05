@@ -1,6 +1,6 @@
 package br.com.fiap.soat8.grp14.techchallenge.application.ports.out;
 
-import br.com.fiap.soat8.grp14.techchallenge.domain.Produto;
+import br.com.fiap.soat8.grp14.techchallenge.domain.models.Produto;
 
 import java.util.List;
 

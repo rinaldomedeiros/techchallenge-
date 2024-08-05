@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.domain.entities;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.StatusPedido;
 import jakarta.persistence.*;
@@ -16,7 +16,7 @@ import java.io.Serial;
 @ToString
 @Table(name = "pedido")
 @Entity
-public class Pedido extends BaseEntity {
+public class PedidoEntity extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1632367913305406090L;
@@ -36,5 +36,5 @@ public class Pedido extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private ClienteEntity clienteEntity;
 }

@@ -2,9 +2,7 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
-import br.com.fiap.soat8.grp14.techchallenge.domain.entities.ProdutoEntity;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +20,6 @@ public class ProdutoController {
     @PostMapping
     void salvarProdutos(@RequestBody ProdutoDTO produtoDTO) {
         produtoServicePort.salvarProduto(produtoDTO);
-
     }
 
     @GetMapping

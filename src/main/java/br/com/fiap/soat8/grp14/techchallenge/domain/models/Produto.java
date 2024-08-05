@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.domain;
+package br.com.fiap.soat8.grp14.techchallenge.domain.models;
 
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;

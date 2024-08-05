@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.domain.entities;
+package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +14,7 @@ import java.io.Serial;
 @ToString
 @Table(name = "item_pedido")
 @Entity
-public class ItemPedido extends BaseEntity {
+public class ItemPedidoEntity extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 8949519988726287601L;
@@ -29,5 +29,5 @@ public class ItemPedido extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
+    private PedidoEntity pedidoEntity;
 }
