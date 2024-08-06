@@ -14,6 +14,7 @@ import java.io.Serial;
 @NoArgsConstructor
 @Table(name = "produto")
 @Entity
+
 public class ProdutoEntity extends BaseEntity {
 
     @Serial
@@ -51,19 +52,4 @@ public class ProdutoEntity extends BaseEntity {
 
     }
 
-    public void setNome(@Size(max = 255) @NotNull String nome) {
-        this.nome = nome;
-    }
-
-    public void setDescricao(@Size(max = 255) @NotNull String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setValor(@NotNull Double valor) {
-        this.valor = valor;
-    }
-
-    public void setCategoriaProduto(@NotNull CategoriaProduto categoriaProduto) {
-        this.categoriaProduto = categoriaProduto;
-    }
 }

@@ -2,6 +2,7 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
+import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,12 @@ public class ProdutoController {
     @GetMapping(value = "/{id}")
     ProdutoDTO getProdutoPorId(@PathVariable Long id) {
         return produtoServicePort.buscarPorId(id);
+    }
+
+
+    @GetMapping(value = "/categoria/{categoriaProduto}")
+    List<ProdutoDTO> getProdutosPorCategoria(@PathVariable CategoriaProduto categoriaProduto) {
+        return produtoServicePort.buscarPorCategoria(categoriaProduto);
     }
 
     @PutMapping(value = "/{id}")
