@@ -30,4 +30,8 @@ public class ItemPedidoEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private PedidoEntity pedidoEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
+    private PedidoEntity produtoEntity;
 }

@@ -13,7 +13,6 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
     @Override
     public void processarPedido(Long pedidoId) {
-
         checkoutPort.iniciarCheckout(pedidoId);
     }
 }

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serial;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -37,4 +38,12 @@ public class PedidoEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntity clienteEntity;
+
+
+    @OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<ItemPedidoEntity> itens;
+
+
+
 }
