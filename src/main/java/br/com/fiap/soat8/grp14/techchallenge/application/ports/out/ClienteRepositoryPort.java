@@ -1,9 +1,19 @@
 package br.com.fiap.soat8.grp14.techchallenge.application.ports.out;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.ClienteEntity;
-
 import java.util.List;
+import java.util.Optional;
+
+import br.com.fiap.soat8.grp14.techchallenge.domain.models.Cliente;
 
 public interface ClienteRepositoryPort {
-    List<ClienteEntity> listarTodos(Integer page, Integer linesPerPage, String orderBy, String direction);
+    List<Cliente> listarTodos();
+
+    Optional<Cliente> buscarCliente(String cpf);
+    
+    Optional<Cliente> buscarCliente(Long id);
+	
+    Cliente salvarCliente(Cliente cliente);
+
+	void excluirCliente(Cliente cliente);
+	
 }

@@ -9,7 +9,8 @@ import lombok.*;
 
 import java.io.Serial;
 
-@Builder
+import br.com.fiap.soat8.grp14.techchallenge.domain.models.Cliente;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -35,6 +36,17 @@ public class ClienteEntity extends BaseEntity {
     @Size(max = 14)
     @NotNull
     @Column(name = "cpf", nullable = false, length = 14)
-    private String senha;
+    private String cpf;
+    
+    public ClienteEntity(Cliente cliente) {
+    	this.id = cliente.getId();
+    	this.nome = cliente.getNome();
+    	this.email = cliente.getEmail();
+		this.cpf = cliente.getCpf();
+    }
 
+    public Cliente toCliente() {
+    	return new Cliente(this.id, this.email, this.nome, this.cpf);
+    }
+    
 }
