@@ -3,6 +3,7 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
+import jakarta.validation.Valid;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    void salvarProdutos(@RequestBody ProdutoDTO produtoDTO) {
+    void salvarProdutos(@Valid @RequestBody ProdutoDTO produtoDTO) {
         produtoServicePort.salvarProduto(produtoDTO);
     }
 
@@ -40,8 +41,7 @@ public class ProdutoController {
     }
 
     @PutMapping(value = "/{id}")
-    void atualizarProdutos(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO) throws ChangeSetPersister.NotFoundException {
-
+    void atualizarProdutos(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) throws ChangeSetPersister.NotFoundException {
         produtoServicePort.atualizarProduto(id, produtoDTO);
     }
 
