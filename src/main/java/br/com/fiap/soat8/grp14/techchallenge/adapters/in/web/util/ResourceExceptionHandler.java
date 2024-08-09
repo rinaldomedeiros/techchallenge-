@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web.util;
 
 
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,21 @@ public class ResourceExceptionHandler {
                 .message("Erro de validação")
                 .timestamp(LocalDateTime.now())
                 .errorList(validationErrors)
+                .build();
+
+        return ResponseEntity.status(standardError.getStatus()).body(standardError);
+    }
+
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<StandardError> erroValidacao(EntityNotFoundException e, HttpServletRequest httpServletRequest) {
+
+
+        StandardError standardError = StandardError.builder()
+                .status(HttpStatus.NOT_FOUND)
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
                 .build();
 
         return ResponseEntity.status(standardError.getStatus()).body(standardError);

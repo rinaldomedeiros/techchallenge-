@@ -3,6 +3,7 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -34,13 +35,10 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id) {
-        try {
-            ProdutoDTO produtoBuscado = produtoServicePort.buscarPorId(id);
-            return ResponseEntity.ok(produtoBuscado);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id) throws EntityNotFoundException {
+        
+        ProdutoDTO produtoBuscado = produtoServicePort.buscarPorId(id);
+        return ResponseEntity.ok(produtoBuscado);
     }
 
     @GetMapping(value = "/categoria/{categoriaProduto}")

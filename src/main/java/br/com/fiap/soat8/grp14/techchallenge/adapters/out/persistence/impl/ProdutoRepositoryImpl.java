@@ -27,9 +27,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
     }
 
     @Override
-    public List<Produto> buscarPorCategoria (CategoriaProduto categoriaProduto){
-        List<ProdutoEntity>produtoEntitiesCategoria = this.produtoSpringRepository.findByCategoriaProduto(categoriaProduto);
-        return  produtoEntitiesCategoria.stream().map(ProdutoEntity::toProduto).collect(Collectors.toList());
+    public List<Produto> buscarPorCategoria(CategoriaProduto categoriaProduto) {
+        List<ProdutoEntity> produtoEntitiesCategoria = this.produtoSpringRepository.findByCategoriaProduto(categoriaProduto);
+        return produtoEntitiesCategoria.stream().map(ProdutoEntity::toProduto).collect(Collectors.toList());
     }
 
     @Override
@@ -43,8 +43,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
         Optional<ProdutoEntity> produtoEntity = this.produtoSpringRepository.findById(id);
         if (produtoEntity.isPresent())
             return produtoEntity.get().toProduto();
+        return null;
 
-        throw new RuntimeException("Produto não localizado na base de Dados");
+        // throw new RuntimeException("Produto não localizado na base de Dados");
     }
 
     @Override

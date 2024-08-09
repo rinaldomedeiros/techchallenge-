@@ -4,6 +4,7 @@ import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ProdutoRepositoryPort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.models.Produto;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
@@ -26,8 +27,9 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     }
 
     @Override
-    public ProdutoDTO buscarPorId(Long id) {
+    public ProdutoDTO buscarPorId(Long id) throws EntityNotFoundException {
         Produto produto = this.produtoRepositoryPort.buscarPorId(id);
+        if (produto == null) throw new EntityNotFoundException("Produto não encontrado");
         ProdutoDTO produtoBuscado = produto.toProdutoDTO();
         return produtoBuscado;
     }
