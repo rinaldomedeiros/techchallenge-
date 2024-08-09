@@ -14,8 +14,8 @@ public class AppConfig {
         return new FakeCheckoutAdapter();
     }
 
-    @Bean
-    public PedidoServiceImpl pedidoServicePort(CheckoutPort checkoutPort) {
-        return new PedidoServiceImpl(checkoutPort);
-    }
+    // @Bean
+    // public PedidoServiceImpl pedidoServicePort(CheckoutPort checkoutPort) {
+    //     return new PedidoServiceImpl(checkoutPort);
+    // }
 }

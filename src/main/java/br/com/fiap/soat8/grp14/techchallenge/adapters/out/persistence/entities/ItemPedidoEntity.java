@@ -1,10 +1,20 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
-
 import java.io.Serial;
+
+import br.com.fiap.soat8.grp14.techchallenge.domain.models.ItemPedido;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Builder
 @AllArgsConstructor
@@ -33,5 +43,22 @@ public class ItemPedidoEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    private PedidoEntity produtoEntity;
+    private ProdutoEntity produtoEntity;
+
+    public ItemPedidoEntity(ItemPedido itemPedido) {
+        this.id = itemPedido.getId();
+        this.quantidade = itemPedido.getQuantidade();
+        this.valorItem = itemPedido.getValorItem();
+        this.pedidoEntity = new PedidoEntity(itemPedido.getPedido());
+        this.produtoEntity = new ProdutoEntity(itemPedido.getProduto());
+    }
+
+    public ItemPedido toItemPedido() {
+        return new ItemPedido(
+                this.id,
+                this.quantidade,
+                this.valorItem,
+                this.pedidoEntity != null ? this.pedidoEntity.toPedido() : null,
+                this.produtoEntity != null ? this.produtoEntity.toProduto() : null);
+    }
 }
