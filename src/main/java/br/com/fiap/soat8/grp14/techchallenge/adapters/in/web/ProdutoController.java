@@ -5,9 +5,12 @@ import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoService
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
 import jakarta.validation.Valid;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -20,34 +23,48 @@ public class ProdutoController {
     }
 
     @PostMapping
-    void salvarProdutos(@Valid @RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<Void> salvarProdutos(@Valid @RequestBody ProdutoDTO produtoDTO) {
         produtoServicePort.salvarProduto(produtoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
-    List<ProdutoDTO> getProdutos() {
-        return produtoServicePort.buscarProdutos();
+    public ResponseEntity<List<ProdutoDTO>> getProdutos() {
+        return ResponseEntity.ok(this.produtoServicePort.buscarProdutos());
     }
 
     @GetMapping(value = "/{id}")
-    ProdutoDTO getProdutoPorId(@PathVariable Long id) {
-        return produtoServicePort.buscarPorId(id);
+    public ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id) {
+        try {
+            ProdutoDTO produtoBuscado = produtoServicePort.buscarPorId(id);
+            return ResponseEntity.ok(produtoBuscado);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
-
     @GetMapping(value = "/categoria/{categoriaProduto}")
-    List<ProdutoDTO> getProdutosPorCategoria(@PathVariable CategoriaProduto categoriaProduto) {
-        return produtoServicePort.buscarPorCategoria(categoriaProduto);
+    public ResponseEntity<List<ProdutoDTO>> getProdutosPorCategoria(@PathVariable CategoriaProduto categoriaProduto) {
+        return ResponseEntity.ok(this.produtoServicePort.buscarPorCategoria(categoriaProduto));
     }
 
     @PutMapping(value = "/{id}")
-    void atualizarProdutos(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) throws ChangeSetPersister.NotFoundException {
-        produtoServicePort.atualizarProduto(id, produtoDTO);
+    public ResponseEntity atualizarProdutos(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) {
+        try {
+            produtoServicePort.atualizarProduto(id, produtoDTO);
+            return ResponseEntity.ok().build();
+        } catch (ChangeSetPersister.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping(value = "/{id}")
-    void deletaProdutos(@PathVariable Long id) {
-        produtoServicePort.deletarProduto(id);
+    public ResponseEntity<Void> deletaProdutos(@PathVariable Long id) {
+        try {
+            produtoServicePort.deletarProduto(id);
+            return ResponseEntity.noContent().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
-
 }
