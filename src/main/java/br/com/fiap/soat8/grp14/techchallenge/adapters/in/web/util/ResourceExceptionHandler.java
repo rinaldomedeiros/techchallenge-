@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web.util;
 
 
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.DataIntegrityException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EmptyItensException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,6 +68,17 @@ public class ResourceExceptionHandler {
                 .build();
 
         return ResponseEntity.status(standardError.getStatus()).body(standardError);
+    }
+
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<StandardError> dataIntegrityViolation(DataIntegrityException e, HttpServletRequest request) {
+        StandardError standardError = StandardError.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }
 
 }
