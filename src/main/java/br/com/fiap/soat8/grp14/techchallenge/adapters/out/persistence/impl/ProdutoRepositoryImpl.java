@@ -50,14 +50,14 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
     }
 
     @Override
-    public void deletarProduto(Long id) throws EntityNotFoundException {
+    public void deletarProduto(Long id) {
         ProdutoEntity produtoEntity = produtoSpringRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
         this.produtoSpringRepository.delete(produtoEntity);
     }
 
     @Override
-    public void atualizarProduto(Long id, Produto produto) throws EntityNotFoundException {
+    public void atualizarProduto(Long id, Produto produto) {
 
         ProdutoEntity produtoExistente = produtoSpringRepository.
                 findById(id).orElseThrow(() ->
