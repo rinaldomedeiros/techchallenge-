@@ -40,6 +40,7 @@ public class ProdutoEntity extends BaseEntity {
 
 
     public ProdutoEntity(Produto produto) {
+        this.id = produto.getId();
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
         this.valor = produto.getValor();

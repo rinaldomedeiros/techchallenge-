@@ -30,12 +30,14 @@ public class Pedido {
     }
 
     public Pedido(PedidoDTO pedidoDTO) {
-        this.id = pedidoDTO.getId();
-        this.numero = pedidoDTO.getNumero();
-        this.valorTotal = pedidoDTO.getValorTotal();
-        this.statusPedido = pedidoDTO.getStatusPedido();
-        this.cliente = new Cliente(pedidoDTO.getCliente());
-        this.itens = convertToItemPedidoList(pedidoDTO.getItens());
+        if (pedidoDTO != null) {
+            this.id = pedidoDTO.getId() != null ? pedidoDTO.getId() : null;
+            this.numero = pedidoDTO.getNumero();
+            this.valorTotal = pedidoDTO.getValorTotal();
+            this.statusPedido = pedidoDTO.getStatusPedido();
+            this.cliente = new Cliente(pedidoDTO.getCliente());
+            this.itens = convertToItemPedidoList(pedidoDTO.getItens());
+        }
     }
 
     public PedidoDTO toPedidoDTO() {
@@ -68,27 +70,52 @@ public class Pedido {
         return itemPedidoDTOs;
     }
 
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNumero() {
         return numero;
     }
 
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
     public Double getValorTotal() {
         return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public StatusPedido getStatusPedido() {
         return statusPedido;
     }
 
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public List<ItemPedido> getItens() {
         return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
     }
 }
