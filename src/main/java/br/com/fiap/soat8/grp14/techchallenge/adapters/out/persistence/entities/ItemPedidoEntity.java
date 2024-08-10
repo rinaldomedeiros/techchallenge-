@@ -49,7 +49,6 @@ public class ItemPedidoEntity extends BaseEntity {
         this.id = itemPedido.getId();
         this.quantidade = itemPedido.getQuantidade();
         this.valorItem = itemPedido.getValorItem();
-        this.pedidoEntity = new PedidoEntity(itemPedido.getPedido());
         this.produtoEntity = new ProdutoEntity(itemPedido.getProduto());
     }
 
@@ -58,7 +57,6 @@ public class ItemPedidoEntity extends BaseEntity {
                 this.id,
                 this.quantidade,
                 this.valorItem,
-                this.pedidoEntity != null ? this.pedidoEntity.toPedido() : null,
                 this.produtoEntity != null ? this.produtoEntity.toProduto() : null);
     }
 }

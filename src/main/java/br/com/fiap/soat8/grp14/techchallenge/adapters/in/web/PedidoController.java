@@ -3,6 +3,7 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.PedidoServicePort;
 
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EmptyItensException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> salvarPedidos(@RequestBody PedidoDTO pedidoDTO) {
+    public ResponseEntity<String> salvarPedidos(@RequestBody PedidoDTO pedidoDTO) throws EmptyItensException {
         pedidoServicePort.salvarPedido(pedidoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Pedido criado com sucesso!");
     }

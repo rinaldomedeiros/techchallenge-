@@ -13,11 +13,10 @@ public class ItemPedido {
     public ItemPedido() {
     }
 
-    public ItemPedido(Long id, Integer quantidade, Double valorItem, Pedido pedido, Produto produto) {
+    public ItemPedido(Long id, Integer quantidade, Double valorItem, Produto produto) {
         this.id = id;
         this.quantidade = quantidade;
         this.valorItem = valorItem;
-        this.pedido = pedido;
         this.produto = produto;
     }
 
@@ -25,8 +24,8 @@ public class ItemPedido {
         this.id = itemPedidoDTO.getId();
         this.quantidade = itemPedidoDTO.getQuantidade();
         this.valorItem = itemPedidoDTO.getValorItem();
-        this.pedido = new Pedido(itemPedidoDTO.getPedido());
-        this.produto = new Produto(itemPedidoDTO.getProduto());
+        this.pedido = itemPedidoDTO.getPedido() != null ? new Pedido(itemPedidoDTO.getPedido()) : null;
+        this.produto = itemPedidoDTO.getProduto() != null ? new Produto(itemPedidoDTO.getProduto()) : null;
     }
 
     public ItemPedidoDTO toItemPedidoDTO() {

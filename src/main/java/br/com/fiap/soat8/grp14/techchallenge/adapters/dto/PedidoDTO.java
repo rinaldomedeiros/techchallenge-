@@ -15,6 +15,7 @@ import lombok.Setter;
 public class PedidoDTO {
 
     private Long id;
+
     private String numero;
     private Double valorTotal;
     private StatusPedido statusPedido;

@@ -57,12 +57,14 @@ public class PedidoEntity extends BaseEntity {
     private List<ItemPedidoEntity> itens;
 
     public PedidoEntity(Pedido pedido) {
-        this.id = pedido.getId();
-        this.numero = pedido.getNumero();
-        this.valorTotal = pedido.getValorTotal();
-        this.statusPedido = pedido.getStatusPedido();
-        this.clienteEntity = new ClienteEntity(pedido.getCliente());
-        this.itens = pedido.getItens().stream().map(ItemPedidoEntity::new).collect(Collectors.toList());
+        if (pedido != null) {
+            this.id = pedido.getId();
+            this.numero = pedido.getNumero();
+            this.valorTotal = pedido.getValorTotal();
+            this.statusPedido = pedido.getStatusPedido();
+            this.clienteEntity = new ClienteEntity(pedido.getCliente());
+            this.itens = pedido.getItens().stream().map(ItemPedidoEntity::new).collect(Collectors.toList());
+        }
     }
 
     public Pedido toPedido() {
