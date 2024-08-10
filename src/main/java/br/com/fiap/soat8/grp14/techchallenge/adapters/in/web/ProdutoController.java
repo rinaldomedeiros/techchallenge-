@@ -5,7 +5,6 @@ import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoService
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
 import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,7 @@ public class ProdutoController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id) throws EntityNotFoundException {
-        
+
         ProdutoDTO produtoBuscado = produtoServicePort.buscarPorId(id);
         return ResponseEntity.ok(produtoBuscado);
     }
@@ -48,21 +47,15 @@ public class ProdutoController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity atualizarProdutos(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) {
-        try {
-            produtoServicePort.atualizarProduto(id, produtoDTO);
-            return ResponseEntity.ok().build();
-        } catch (ChangeSetPersister.NotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+
+        produtoServicePort.atualizarProduto(id, produtoDTO);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deletaProdutos(@PathVariable Long id) {
-        try {
-            produtoServicePort.deletarProduto(id);
-            return ResponseEntity.noContent().build();
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+
+        produtoServicePort.deletarProduto(id);
+        return ResponseEntity.noContent().build();
     }
 }

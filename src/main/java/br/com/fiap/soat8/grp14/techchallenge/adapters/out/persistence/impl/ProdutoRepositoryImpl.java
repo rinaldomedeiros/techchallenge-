@@ -3,6 +3,7 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.impl;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.ProdutoSpringRepository;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ProdutoRepositoryPort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.models.Produto;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.ProdutoEntity;
 import org.springframework.stereotype.Component;
@@ -41,25 +42,26 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
     @Override
     public Produto buscarPorId(Long id) {
         Optional<ProdutoEntity> produtoEntity = this.produtoSpringRepository.findById(id);
-        if (produtoEntity.isPresent())
+        if (produtoEntity.isPresent()) {
             return produtoEntity.get().toProduto();
-        return null;
-
-        // throw new RuntimeException("Produto não localizado na base de Dados");
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public void deletarProduto(Long id) {
-        produtoSpringRepository.findById(id).ifPresent(produtoSpringRepository::delete);
-
+    public void deletarProduto(Long id) throws EntityNotFoundException {
+        ProdutoEntity produtoEntity = produtoSpringRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
+        this.produtoSpringRepository.delete(produtoEntity);
     }
 
     @Override
-    public void atualizarProduto(Long id, Produto produto) {
+    public void atualizarProduto(Long id, Produto produto) throws EntityNotFoundException {
 
         ProdutoEntity produtoExistente = produtoSpringRepository.
                 findById(id).orElseThrow(() ->
-                        new RuntimeException("Produto não encontrado"));
+                        new EntityNotFoundException("Produto não encontrado"));
         produtoExistente.setNome(produto.getNome());
         produtoExistente.setDescricao(produto.getDescricao());
         produtoExistente.setValor(produto.getValor());
