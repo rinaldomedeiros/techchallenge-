@@ -58,7 +58,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
                     .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
             this.produtoSpringRepository.delete(produtoEntity);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Não é possivel deletar o produtos, " +
+            throw new DataIntegrityException("Não é possivel deletar o produto, " +
                     "pois o mesmo está associado a um pedido");
         }
     }
