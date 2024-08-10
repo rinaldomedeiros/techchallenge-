@@ -17,7 +17,7 @@ public interface ProdutoServicePort {
 
     void salvarProduto(ProdutoDTO produtoDTO);
 
-    void atualizarProduto(Long id, ProdutoDTO produtoDTO) throws ChangeSetPersister.NotFoundException;
+    void atualizarProduto(Long id, ProdutoDTO produtoDTO) throws EntityNotFoundException;
 
     void deletarProduto(Long id);
 

@@ -29,9 +29,12 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     @Override
     public ProdutoDTO buscarPorId(Long id) throws EntityNotFoundException {
         Produto produto = this.produtoRepositoryPort.buscarPorId(id);
-        if (produto == null) throw new EntityNotFoundException("Produto não encontrado");
-        ProdutoDTO produtoBuscado = produto.toProdutoDTO();
-        return produtoBuscado;
+        if (produto == null) {
+            throw new EntityNotFoundException("Produto não encontrado");
+        } else {
+            ProdutoDTO produtoBuscado = produto.toProdutoDTO();
+            return produtoBuscado;
+        }
     }
 
     @Override
@@ -48,7 +51,7 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     }
 
     @Override
-    public void atualizarProduto(Long id, ProdutoDTO produtoDTO) throws ChangeSetPersister.NotFoundException {
+    public void atualizarProduto(Long id, ProdutoDTO produtoDTO) {
         Produto produto = new Produto(produtoDTO);
         this.produtoRepositoryPort.atualizarProduto(id, produto);
 
