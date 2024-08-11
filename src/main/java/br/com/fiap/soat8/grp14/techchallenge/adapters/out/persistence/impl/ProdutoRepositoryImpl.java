@@ -43,12 +43,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
 
     @Override
     public Produto buscarPorId(Long id) {
-        Optional<ProdutoEntity> produtoEntity = this.produtoSpringRepository.findById(id);
-        if (produtoEntity.isPresent()) {
-            return produtoEntity.get().toProduto();
-        } else {
-            return null;
-        }
+        Optional<ProdutoEntity> produtoEntity = Optional.ofNullable(this.produtoSpringRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado")));
+        return produtoEntity.map(ProdutoEntity::toProduto).orElse(null);
     }
 
     @Override
@@ -74,8 +71,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
         produtoExistente.setValor(produto.getValor());
         produtoExistente.setCategoriaProduto(produto.getCategoriaProduto());
 
-        ProdutoEntity produtoAtualizado = produtoSpringRepository.save(produtoExistente);
-
+        this.produtoSpringRepository.save(produtoExistente);
     }
 }
 

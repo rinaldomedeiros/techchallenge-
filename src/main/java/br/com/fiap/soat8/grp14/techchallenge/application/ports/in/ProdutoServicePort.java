@@ -11,7 +11,7 @@ public interface ProdutoServicePort {
 
     List<ProdutoDTO> buscarProdutos();
 
-    ProdutoDTO buscarPorId (Long id) throws EntityNotFoundException;
+    ProdutoDTO buscarPorId(Long id);
 
     List<ProdutoDTO> buscarPorCategoria(CategoriaProduto categoriaProduto);
 
@@ -20,7 +20,6 @@ public interface ProdutoServicePort {
     void atualizarProduto(Long id, ProdutoDTO produtoDTO) throws EntityNotFoundException;
 
     void deletarProduto(Long id);
-
 
 
 }
