@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import jakarta.transaction.Transactional;
@@ -33,5 +34,11 @@ public class PedidoRepositoryImpl implements PedidoRepositoryPort {
         pedidoEntity.getItens().forEach(itemPedidoEntity -> itemPedidoEntity.setPedidoEntity(pedidoEntity));
         this.pedidoSpringRepository.save(pedidoEntity);
     }
+
+    @Override
+    public Optional<Integer> obterUltimoNumeroPedido() {
+        return pedidoSpringRepository.findTopByOrderByNumeroDesc().map(PedidoEntity::getNumero);
+    }
+
 
 }

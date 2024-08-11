@@ -1,18 +1,15 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
 import java.io.Serial;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.StatusPedido;
 import br.com.fiap.soat8.grp14.techchallenge.domain.models.Pedido;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -35,10 +32,15 @@ public class PedidoEntity extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1632367913305406090L;
 
-    @Size(max = 10)
+    @Min(1)
+    @Max(1000)
     @NotNull
     @Column(name = "numero", nullable = false)
-    private String numero;
+    private Integer numero;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_pedido", nullable = false)
+    private Date dataPedido;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -56,10 +58,16 @@ public class PedidoEntity extends BaseEntity {
     @ToString.Exclude
     private List<ItemPedidoEntity> itens;
 
+    @PrePersist
+    protected void onCreate() {
+        this.dataPedido = new Date();
+    }
+
     public PedidoEntity(Pedido pedido) {
         if (pedido != null) {
             this.id = pedido.getId();
             this.numero = pedido.getNumero();
+            this.dataPedido = pedido.getDataPedido();
             this.valorTotal = pedido.getValorTotal();
             this.statusPedido = pedido.getStatusPedido();
             this.clienteEntity = new ClienteEntity(pedido.getCliente());
@@ -69,12 +77,13 @@ public class PedidoEntity extends BaseEntity {
 
     public Pedido toPedido() {
         return new Pedido(
-            this.id,
-            this.numero,
-            this.valorTotal,
-            this.statusPedido,
-            this.clienteEntity != null ? this.clienteEntity.toCliente() : null,
-            this.itens.stream().map(ItemPedidoEntity::toItemPedido).collect(Collectors.toList())
+                this.id,
+                this.numero,
+                this.dataPedido,
+                this.valorTotal,
+                this.statusPedido,
+                this.clienteEntity != null ? this.clienteEntity.toCliente() : null,
+                this.itens.stream().map(ItemPedidoEntity::toItemPedido).collect(Collectors.toList())
         );
     }
 }
