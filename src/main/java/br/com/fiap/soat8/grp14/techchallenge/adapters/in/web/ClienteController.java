@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,19 +41,14 @@ public class ClienteController {
     }
     
     @PostMapping
-    public ResponseEntity<ClienteDTO> salvarCliente(@RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<ClienteDTO> salvarCliente(@Validated  @RequestBody ClienteDTO clienteDTO) {
         ClienteDTO clienteCriado = clienteServicePort.salvarCliente(clienteDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteCriado);
     }
     
-  //falta excluir o relacionamento com o pedido antes de excluir o cliente.      
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> excluirCliente(@PathVariable Long id) {
-        boolean isExcluido = clienteServicePort.excluirCliente(id);
-        if (isExcluido) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<String> excluirCliente(@PathVariable Long id) {
+        clienteServicePort.excluirCliente(id);
+        return ResponseEntity.noContent().build();
     }
 }

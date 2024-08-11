@@ -1,47 +1,47 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.impl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.ClienteSpringRepository;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.PedidoSpringRepository;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.ClienteEntity;
+import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.PedidoEntity;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ClienteRepositoryPort;
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.models.Cliente;
 
 @Service
 public class ClienteRepositoryImpl implements ClienteRepositoryPort {
-
+	
     private final ClienteSpringRepository clienteSpringRepository;
+    private final PedidoSpringRepository pedidoSpringRepository;
 
-    public ClienteRepositoryImpl(ClienteSpringRepository clienteSpringRepository) {
+    public ClienteRepositoryImpl(ClienteSpringRepository clienteSpringRepository, PedidoSpringRepository pedidoSpringRepository) {
         this.clienteSpringRepository = clienteSpringRepository;
+		this.pedidoSpringRepository = pedidoSpringRepository;
     }
-
+    
     @Override
     public List<Cliente> listarTodos() {
     	List<ClienteEntity> clientes = this.clienteSpringRepository.findAll();
-    	return clientes.stream().map(ClienteEntity::toCliente).collect(Collectors.toList());
+    	return clientes.stream().map(ClienteEntity::toCliente).toList();
     }
     
     @Override
-    public Optional<Cliente> buscarCliente(String cpf) {
-        Optional<ClienteEntity> clienteEntity = this.clienteSpringRepository.findByCpf(cpf);
-        if (clienteEntity.isPresent()) {
-            return clienteEntity.map(ClienteEntity::toCliente);
-        }
-        return Optional.empty();
+    public Cliente buscarCliente(String cpf) {
+        return this.clienteSpringRepository.findByCpf(cpf)
+                .map(ClienteEntity::toCliente)
+                .orElseThrow(this::lancarException);
     }
+
     
     @Override
-    public Optional<Cliente> buscarCliente(Long id) {
-    	Optional<ClienteEntity> clienteEntity = this.clienteSpringRepository.findById(id);
-    	if (clienteEntity.isPresent()) {
-    		return clienteEntity.map(ClienteEntity::toCliente);
-    	}
-    	return Optional.empty();
+    public Cliente buscarCliente(Long id) {
+    	return this.clienteSpringRepository.findById(id)
+                .map(ClienteEntity::toCliente)
+                .orElseThrow(this::lancarException);
     }
 
 	@Override
@@ -54,7 +54,30 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
 	@Override
 	public void excluirCliente(Cliente cliente) {
 		ClienteEntity clienteEntity = new ClienteEntity(cliente);
+		removeRelacionamentoCliente(cliente.getId());
 		clienteSpringRepository.delete(clienteEntity);
 	}
     
+	@Override
+    public void atualizarCliente(Long id, Cliente cliente) {
+        ClienteEntity clienteExistente = clienteSpringRepository.
+                findById(id).orElseThrow(this::lancarException);
+        clienteExistente.setNome(cliente.getNome());
+        clienteExistente.setCpf(cliente.getCpf());
+        clienteExistente.setEmail(cliente.getEmail());
+
+        this.clienteSpringRepository.save(clienteExistente);
+    }
+	
+	private void removeRelacionamentoCliente(Long idCliente) {
+		List<PedidoEntity> pedidos = pedidoSpringRepository.findByClienteEntity_Id(idCliente);
+		for (PedidoEntity pedido : pedidos) {
+			pedido.setClienteEntity(null);
+		}
+		pedidoSpringRepository.saveAllAndFlush(pedidos);
+	}
+	
+	private EntityNotFoundException lancarException() {
+	    return new EntityNotFoundException("Cliente não encontrado");
+	}
 }

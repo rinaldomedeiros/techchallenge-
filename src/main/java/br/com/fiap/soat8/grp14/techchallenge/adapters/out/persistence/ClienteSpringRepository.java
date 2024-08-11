@@ -9,6 +9,5 @@ import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.C
 
 @Repository
 public interface ClienteSpringRepository extends JpaRepository<ClienteEntity, Long> {
-
-	Optional<ClienteEntity> findByCpf(String cpf);
+	public Optional<ClienteEntity> findByCpf(String cpf);
 }

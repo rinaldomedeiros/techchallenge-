@@ -12,7 +12,7 @@ public interface ClienteServicePort {
 	ClienteDTO buscarCliente(String cpf);
 	ClienteDTO buscarCliente(Long id);
 	ClienteDTO salvarCliente(@Valid ClienteDTO clienteDTO);
-	boolean excluirCliente(Long id);
+	void excluirCliente(Long id);
 	
 
 }
