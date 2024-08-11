@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -34,7 +33,7 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id) throws EntityNotFoundException {
+    public ResponseEntity<ProdutoDTO> getProdutoPorId(@PathVariable Long id) {
 
         ProdutoDTO produtoBuscado = produtoServicePort.buscarPorId(id);
         return ResponseEntity.ok(produtoBuscado);
