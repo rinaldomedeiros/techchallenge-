@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.domain.usecases;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ItemPedidoDTO;
@@ -21,7 +22,7 @@ public class PedidoServiceImpl implements PedidoServicePort {
 
     @Override
     public void processarPedido(Long pedidoId) {
-    //    pedidoServicePort.iniciarCheckout(pedidoId);
+        //    pedidoServicePort.iniciarCheckout(pedidoId);
     }
 
     @Override
@@ -38,6 +39,11 @@ public class PedidoServiceImpl implements PedidoServicePort {
         pedidoDTO.setValorTotal(this.calcularTotalPedido(pedidoDTO.getItens()));
 
         //TODO: criar funcionalidade para numerar o Pedido
+
+        int numeroPedido = gerarNumeroPedido();
+        pedidoDTO.setNumero(numeroPedido);
+
+
         //TODO: validar se o item de pedido está preenchido corretamente: se o produto foi informado e se a quantidade é válida.
         Pedido pedido = new Pedido(pedidoDTO);
         pedido.setStatusPedido(StatusPedido.RECEBIDO);
@@ -49,4 +55,18 @@ public class PedidoServiceImpl implements PedidoServicePort {
                 .mapToDouble(item -> item.getQuantidade() * item.getValorItem())
                 .sum();
     }
+
+    private int gerarNumeroPedido() {
+        Optional<Integer> ultimoNumero = pedidoRepositoryPort.obterUltimoNumeroPedido();
+
+        // Se existe um número anterior, incrementa, senão começa com 1
+        int novoNumero = ultimoNumero.orElse(0) + 1;
+
+        if (novoNumero > 1000) {
+            novoNumero = 1;
+        }
+        return novoNumero;
+    }
+
+
 }

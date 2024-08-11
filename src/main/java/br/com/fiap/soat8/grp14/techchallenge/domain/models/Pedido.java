@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.domain.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ItemPedidoDTO;
@@ -10,7 +11,8 @@ import br.com.fiap.soat8.grp14.techchallenge.domain.enums.StatusPedido;
 public class Pedido {
 
     private Long id;
-    private String numero;
+    private Integer numero;
+    private Date dataPedido;
     private Double valorTotal;
     private StatusPedido statusPedido;
     private Cliente cliente;
@@ -19,10 +21,11 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, String numero, Double valorTotal, StatusPedido statusPedido, Cliente cliente,
-            List<ItemPedido> itens) {
+    public Pedido(Long id, Integer numero, Date dataPedido, Double valorTotal, StatusPedido statusPedido, Cliente cliente,
+                  List<ItemPedido> itens) {
         this.id = id;
         this.numero = numero;
+        this.dataPedido = dataPedido;
         this.valorTotal = valorTotal;
         this.statusPedido = statusPedido;
         this.cliente = cliente;
@@ -33,6 +36,7 @@ public class Pedido {
         if (pedidoDTO != null) {
             this.id = pedidoDTO.getId() != null ? pedidoDTO.getId() : null;
             this.numero = pedidoDTO.getNumero();
+            this.dataPedido = pedidoDTO.getDataPedido();
             this.valorTotal = pedidoDTO.getValorTotal();
             this.statusPedido = pedidoDTO.getStatusPedido();
             this.cliente = new Cliente(pedidoDTO.getCliente());
@@ -44,6 +48,7 @@ public class Pedido {
         return new PedidoDTO(
                 this.id,
                 this.numero,
+                this.dataPedido,
                 this.valorTotal,
                 this.statusPedido,
                 this.cliente != null ? this.cliente.toClienteDTO() : null,
@@ -70,7 +75,6 @@ public class Pedido {
         return itemPedidoDTOs;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -79,12 +83,20 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
     }
 
     public Double getValorTotal() {

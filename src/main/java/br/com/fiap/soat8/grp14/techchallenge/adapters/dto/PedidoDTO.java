@@ -1,5 +1,6 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.dto;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.StatusPedido;
@@ -16,7 +17,8 @@ public class PedidoDTO {
 
     private Long id;
 
-    private String numero;
+    private Integer numero;
+    private Date dataPedido;
     private Double valorTotal;
     private StatusPedido statusPedido;
     private ClienteDTO cliente;
