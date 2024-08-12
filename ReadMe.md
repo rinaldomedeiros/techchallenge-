@@ -95,14 +95,14 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 
 ⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*
 
-### 4.1 Customer
+### 4.1 Cliente
 `
 - *Criar Cliente:* POST `http://localhost:9090/api/clientes`
 - *Listar Clientes:* GET `http://localhost:9090/api/clientes`
 - *Obter Cliente por CPF:* GET `http://localhost:9090/api/clientes/{cpf}`
 - *Deletar Cliente:* DELETE `http://localhost:9090/api/clientes/{id}`
 
-# 4.2 Product
+# 4.2 Produto
 
 - *Criar Produto:* POST `http://localhost:9090/api/produtos`
 - *Listar Produtos:* GET `http://localhost:9090/api/produtos`
@@ -111,7 +111,7 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 - *Atualizar Produto:* PUT `http://localhost:9090/api/produtos/{id}`
 - *Deletar Produto:* DELETE `http://localhost:9090/api/produtos/{id}`
 
-# 4.3 Order
+# 4.3 Pedido
 
 - *Iniciar Novo Pedido:* POST `http://localhost:9090/api/pedidos`
 - *Listar Pedidos:* GET `http://localhost:9090/api/pedidos`
