@@ -1,98 +1,117 @@
-# 1. Introduction
+# 💡 1. Introdução
 
-## 💡 1.1 Objective
-This project aims to manage all orders of a snack bar. From the beginning, user registration, item selection, and payment. Until the tracking/updating of status by the kitchen and notification for customer pickup.
+## 1.1 Objetivo
+Este projeto tem como objetivo gerenciar todos os pedidos de uma lanchonete. Desde o início, com o cadastro de usuários, seleção de itens e pagamento, até o acompanhamento/atualização do status pela cozinha e notificação para retirada pelo cliente.
 
-## 📲 1.2 Scope
-List the main functionalities of the system, creation, reading, updating, and deletion `(CRUD)` of the main entities.
+## 1.2 Escopo
+Listar as principais funcionalidades do sistema, criação, leitura, atualização e exclusão (CRUD) das principais entidades.
 
-## 🌟 1.3 How tp Run the Project Locally`
-To run the system locally, you will need:
+## 1.3 Como executar o Projeto Localmente`
+Para rodar o sistema localmente, você precisará de:
 
-- A compatible IDE to download and open the repository such as IntelliJ IDEA, Eclipse, VS Code, etc.
-- Docker installed for container execution.
+- Uma IDE compatível para baixar e abrir o repositório, como IntelliJ IDEA, Eclipse, VS Code e etc.
+- Docker instalado para a execução dos containers.
 
-Running the system:
+*Executando o sistema:*
 
-- Open the terminal and run the command `docker compose up`
+- Abra o terminal e execute o comando `docker compose up --build`.
 
-# Architecture
+# 🌟 2. Arquitetura
 
-## 2.1 Overview
-The system was created using Java and Spring. The image used is built via Docker using the Dockerfile, which performs the artifact build process. The environment is orchestrated through docker-compose.yml, and it creates the database (Postgres) and its respective tables.
+## 2.1 Visão Geral
+O sistema foi criado usando Java e Spring. A imagem usada é construída via Docker usando o Dockerfile, que realiza o processo de build do artefato. O ambiente é orquestrado através do arquivo `docker-compose.yml`, que cria o banco de dados (Postgres) e suas respectivas tabelas.
 
-## 2.2 Architecture Diagram
-Incluir um diagrama?
+## 2.2 Diagrama de Arquitetura`
+![Arquitetura Hexagonal](techchallenge-/assets/Arquitetura.gif)
 
-# 📚 3. Domains and Entities
+# 📚 3. Domínios e Entidades
 
-## 3.1 Customer
+## 3.1 Cliente
 
-- Attributes:
-- Relationships:
-- Functionalities:
+### Atributos:
+- *id (Long):* Identificador único do cliente.
+- *email (String):* Endereço de e-mail do cliente.
+- *nome (String):* Nome do cliente.Funcionalidades.
+- *cpf (String):* CPF do cliente.
 
-## 3.2 Product
+### Relacionamentos:
+- *Pedidos:* Um cliente pode ter vários pedidos. Este é um relacionamento um-para-muitos com a entidade Pedido.
 
-- Attributes:
-- Relationships:
-- Functionalities:
+### 🛠️ Funcionalidades:
+- Criar, atualizar e deletar informações de clientes.
+- Validar informações do cliente antes do armazenamento.
+- Buscar informações detalhadas do cliente.
 
-## 3.3 Order
+## 3.2 Produto 
 
-- Attributes:
-- Relationships:
-- Functionalities:
+### Atributos:
+- *id (Long):* Identificador único do produto.
+- *nome (String):* Nome do produto.
+- *descricao (String):* Descrição detalhada do produto.
+- *valor (Double):* Preço do produto.
+- *categoriaProduto:* Categoria do produto, como Lanche, Bebida, etc.
 
-## 3.4 Order Item
+### Relacionamentos:
+- *Itens de Pedido:* Um produto pode estar associado a vários itens de pedido. Relacionamento muitos-para-muitos através da entidade Item de Pedido.
 
-- Attributes:
-- Relationships:
-- Functionalities:
+### Funcionalidades:
+- Criar, atualizar e deletar produtos.
+- Buscar produtos por categoria.
+- Validar as informações do produto antes de salvar.
 
-## 3.5 Chef
+## 3.3 Pedido
 
-- Attributes:
-- Relationships:
-- Functionalities:
+### Atributos:
+- *id (Long):* Identificador único do pedido.
+- *numero (String):* Número de referência do pedido.
+- *valorTotal (Double):* Valor total do pedido.
+- *statusPedido (StatusPedido):* Estado atual do pedido, como Recebido, Em Preparação e etc.
 
-# 4 API
+### Relacionamentos:
+- *Cliente:* Cada pedido é feito por um cliente. Relacionamento muitos-para-um.
+- *Itens de Pedido:* Um pedido contém vários itens. Relacionamento um-para-muitos.
 
-# 4.1 Customer
+### Funcionalidades:
+- Processar novos pedidos.
+- Atualizar o status do pedido.
+- Calcular o valor total do pedido com base nos itens incluídos.
 
-- Create Customer: POST /customers
-- List Customers: GET /customers
-- Get Customer by ID: GET /customers/{id}
-- Get Customer by CPF: GET /customers/cpf/{cpf}
-- Update Customer: PUT /customers/{id}
-- Delete Customer: DELETE /customers/{id}
+## 3.4 Item
 
-# 4.2 Product
+### Atributos:
+- *id (Long):* Identificador único do item de pedido.
+- *quantidade (Integer):* Quantidade do produto pedido.
+- *valorItem (Double):* Preço do item baseado no produto e na quantidade.
 
-- Create Product: POST /products
-- List Products: GET /products
-- List Products by Category: GET /products/category/{category}
-- Get Product by ID: GET /products/{id}
-- Update Product: PUT /products/{id}
-- Delete Product: DELETE /products/{id}
+### Relacionamentos:
+- *Produto:* Cada item de pedido está associado a um produto específico. Relacionamento muitos-para-um.
+- *Pedido:* Cada item de pedido está associado a um pedido. Relacionamento muitos-para-um.
 
-# 4.3 Order
+### Funcionalidades:
+- Calcular o custo total do item com base na quantidade e no preço do produto.
+- Validar a quantidade do produto (não deve ser zero ou negativa).
 
-- Start New Order: POST /orders
-- List Orders: GET /orders
-- Get Order by ID: GET /orders/{id}
-- Complete Order: PUT /orders/{id}/complete
+# 🧰 4 API
 
-# 4.4 Order Item
+⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*
 
-- Add New Product to Order: POST /orders/{id}/items
-- Update Product in Order: PUT /orders/{id}/items/{item_id}
-- elete Product from Order: DELETE /orders/{id}/items/{item_id}
+### 4.1 Cliente
+`
+- *Criar Cliente:* POST `http://localhost:9090/api/clientes`
+- *Listar Clientes:* GET `http://localhost:9090/api/clientes`
+- *Obter Cliente por CPF:* GET `http://localhost:9090/api/clientes/{cpf}`
+- *Deletar Cliente:* DELETE `http://localhost:9090/api/clientes/{id}`
 
-# 4.5 Chef
+# 4.2 Produto
 
-- Create Chef: POST /chefs
-- List Chefs: GET /chefs
-- Get Chef by ID: GET /chefs/{id}
-- Update Chef: PUT /chefs/{id}
-- Delete Chef: DELETE /chefs/{id}
+- *Criar Produto:* POST `http://localhost:9090/api/produtos`
+- *Listar Produtos:* GET `http://localhost:9090/api/produtos`
+- *Obter Produto por ID:* GET `http://localhost:9090/api/produtos/{id}`
+- *Listar Produtos por Categoria:* GET `http://localhost:9090/api/produtos/categoria/{categoriaProduto}`
+- *Atualizar Produto:* PUT `http://localhost:9090/api/produtos/{id}`
+- *Deletar Produto:* DELETE `http://localhost:9090/api/produtos/{id}`
+
+# 4.3 Pedido
+
+- *Iniciar Novo Pedido:* POST `http://localhost:9090/api/pedidos`
+- *Listar Pedidos:* GET `http://localhost:9090/api/pedidos`
