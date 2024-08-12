@@ -1,12 +1,12 @@
 # 💡 1. Introdução
 
-## 1.1 Objetivo
+### 1.1 Objetivo
 Este projeto tem como objetivo gerenciar todos os pedidos de uma lanchonete. Desde o início, com o cadastro de usuários, seleção de itens e pagamento, até o acompanhamento/atualização do status pela cozinha e notificação para retirada pelo cliente.
 
-## 1.2 Escopo
+### 1.2 Escopo
 Listar as principais funcionalidades do sistema, criação, leitura, atualização e exclusão (CRUD) das principais entidades.
 
-## 1.3 Como executar o Projeto Localmente`
+### 1.3 Como executar o Projeto Localmente?
 Para rodar o sistema localmente, você precisará de:
 
 - Uma IDE compatível para baixar e abrir o repositório, como IntelliJ IDEA, Eclipse, VS Code e etc.
@@ -18,11 +18,11 @@ Para rodar o sistema localmente, você precisará de:
 
 # 🌟 2. Arquitetura
 
-## 2.1 Visão Geral
+### 2.1 Visão Geral
 O sistema foi criado usando Java e Spring. A imagem usada é construída via Docker usando o Dockerfile, que realiza o processo de build do artefato. O ambiente é orquestrado através do arquivo `docker-compose.yml`, que cria o banco de dados (Postgres) e suas respectivas tabelas.
 
-## 2.2 Diagrama de Arquitetura`
-![Arquitetura Hexagonal](techchallenge-/assets/Arquitetura.gif)
+### 2.2 Diagrama de Arquitetura`
+![Arquitetura Hexagonal](./assets/Arquitetura.gif)
 
 # 📚 3. Domínios e Entidades
 
@@ -96,13 +96,13 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 ⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*
 
 ### 4.1 Cliente
-`
+
 - *Criar Cliente:* POST `http://localhost:9090/api/clientes`
 - *Listar Clientes:* GET `http://localhost:9090/api/clientes`
 - *Obter Cliente por CPF:* GET `http://localhost:9090/api/clientes/{cpf}`
 - *Deletar Cliente:* DELETE `http://localhost:9090/api/clientes/{id}`
 
-# 4.2 Produto
+### 4.2 Produto
 
 - *Criar Produto:* POST `http://localhost:9090/api/produtos`
 - *Listar Produtos:* GET `http://localhost:9090/api/produtos`
@@ -111,7 +111,7 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 - *Atualizar Produto:* PUT `http://localhost:9090/api/produtos/{id}`
 - *Deletar Produto:* DELETE `http://localhost:9090/api/produtos/{id}`
 
-# 4.3 Pedido
+### 4.3 Pedido
 
 - *Iniciar Novo Pedido:* POST `http://localhost:9090/api/pedidos`
-- *Listar Pedidos:* GET `http://localhost:9090/api/pedidos`
+- *Listar Pedidos:* GET `http://localhost:9090/api/pedidos` 
