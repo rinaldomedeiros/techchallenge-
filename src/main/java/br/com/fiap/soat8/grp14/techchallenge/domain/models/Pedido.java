@@ -1,18 +1,19 @@
 package br.com.fiap.soat8.grp14.techchallenge.domain.models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ItemPedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.StatusPedido;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Pedido {
 
     private Long id;
     private Integer numero;
-    private Date dataPedido;
+    private LocalDateTime dataPedido;
     private Double valorTotal;
     private StatusPedido statusPedido;
     private Cliente cliente;
@@ -21,7 +22,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, Integer numero, Date dataPedido, Double valorTotal, StatusPedido statusPedido, Cliente cliente,
+    public Pedido(Long id, Integer numero, LocalDateTime dataPedido, Double valorTotal, StatusPedido statusPedido, Cliente cliente,
                   List<ItemPedido> itens) {
         this.id = id;
         this.numero = numero;
@@ -91,11 +92,11 @@ public class Pedido {
         this.numero = numero;
     }
 
-    public Date getDataPedido() {
+    public LocalDateTime getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(Date dataPedido) {
+    public void setDataPedido(LocalDateTime dataPedido) {
         this.dataPedido = dataPedido;
     }
 

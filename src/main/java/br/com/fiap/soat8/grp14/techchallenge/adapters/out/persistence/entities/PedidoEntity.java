@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities;
 
 import java.io.Serial;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class PedidoEntity extends BaseEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_pedido", nullable = false)
-    private Date dataPedido;
+    private LocalDateTime dataPedido;
 
     @NotNull
     @Column(name = "status", nullable = false)
@@ -60,7 +61,7 @@ public class PedidoEntity extends BaseEntity {
 
     @PrePersist
     protected void onCreate() {
-        this.dataPedido = new Date();
+        this.dataPedido = LocalDateTime.now();
     }
 
     public PedidoEntity(Pedido pedido) {
