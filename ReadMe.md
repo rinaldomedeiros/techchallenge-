@@ -21,7 +21,7 @@ Para rodar o sistema localmente, você precisará de:
 ### 2.1 Visão Geral
 O sistema foi criado usando Java e Spring. A imagem usada é construída via Docker usando o Dockerfile, que realiza o processo de build do artefato. O ambiente é orquestrado através do arquivo `docker-compose.yml`, que cria o banco de dados (Postgres) e suas respectivas tabelas.
 
-### 2.2 Diagrama de Arquitetura`
+### 2.2 Diagrama de Arquitetura:
 ![Arquitetura Hexagonal](./assets/Arquitetura.gif)
 
 # 📚 3. Domínios e Entidades
@@ -93,7 +93,7 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 
 # 🧰 4 API
 
-⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*
+⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*!
 
 ### 4.1 Cliente
 
