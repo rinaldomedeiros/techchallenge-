@@ -114,4 +114,4 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 ### 4.3 Pedido
 
 - *Iniciar Novo Pedido:* POST `http://localhost:9090/api/pedidos`
-- *Listar Pedidos:* GET `http://localhost:9090/api/pedidos`
+- *Listar Pedidos:* GET `http://localhost:9090/api/pedidos` 
