@@ -11,15 +11,13 @@ public interface ProdutoRepositoryPort {
 
     Produto buscarPorId(Long id);
 
-    List<Produto>buscarPorCategoria(CategoriaProduto categoriaProduto);
+    List<Produto> buscarPorCategoria(CategoriaProduto categoriaProduto);
 
-    void salvarProduto(Produto produto);
+    Produto salvarProduto(Produto produto);
 
+    Produto atualizarProduto(Long id, Produto produto);
 
-
-    void atualizarProduto (Long id, Produto produto);
-
-   void deletarProduto(Long id);
+    void deletarProduto(Long id);
 
 
 }

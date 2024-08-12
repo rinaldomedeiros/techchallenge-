@@ -22,9 +22,9 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> salvarProdutos(@Valid @RequestBody ProdutoDTO produtoDTO) {
-        produtoServicePort.salvarProduto(produtoDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ProdutoDTO> salvarProdutos(@Valid @RequestBody ProdutoDTO produtoDTO) {
+        ProdutoDTO produtoSalvo = produtoServicePort.salvarProduto(produtoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
     }
 
     @GetMapping
@@ -45,10 +45,9 @@ public class ProdutoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity atualizarProdutos(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) {
-
-        produtoServicePort.atualizarProduto(id, produtoDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ProdutoDTO> atualizarProdutos(@PathVariable Long id, @Valid @RequestBody ProdutoDTO produtoDTO) {
+        ProdutoDTO produtoAtualizado = produtoServicePort.atualizarProduto(id, produtoDTO);
+        return ResponseEntity.ok(produtoAtualizado);
     }
 
     @DeleteMapping(value = "/{id}")
