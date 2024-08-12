@@ -22,7 +22,7 @@ public class ProdutoDTO {
     @Size(min = 2, max = 255, message = "O campo {property} deve ter entre {min} e {max} caracteres.")
     private String nome;
 
-    @NotBlank(message = "O campo nome é obrigatório")
+    @NotBlank(message = "O campo descricao é obrigatório")
     @Size(min = 2, max = 255, message = "O campo {property} deve ter entre {min} e {max} caracteres.")
     private String descricao;
 
@@ -30,7 +30,7 @@ public class ProdutoDTO {
     @Min(0)
     private Double valor;
 
-    @NotNull(message = "O campo nome é obrigatório")
+    @NotNull(message = "O campo categoriaProduto é obrigatório")
     private CategoriaProduto categoriaProduto;
 
 

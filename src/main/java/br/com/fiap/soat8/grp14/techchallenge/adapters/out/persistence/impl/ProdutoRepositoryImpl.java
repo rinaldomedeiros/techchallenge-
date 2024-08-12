@@ -36,9 +36,10 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
     }
 
     @Override
-    public void salvarProduto(Produto produto) {
+    public Produto salvarProduto(Produto produto) {
         ProdutoEntity produtoEntity = new ProdutoEntity(produto);
         this.produtoSpringRepository.save(produtoEntity);
+        return produtoEntity.toProduto();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
     }
 
     @Override
-    public void atualizarProduto(Long id, Produto produto) {
+    public Produto atualizarProduto(Long id, Produto produto) {
 
         ProdutoEntity produtoExistente = produtoSpringRepository.
                 findById(id).orElseThrow(() ->
@@ -72,6 +73,7 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
         produtoExistente.setCategoriaProduto(produto.getCategoriaProduto());
 
         this.produtoSpringRepository.save(produtoExistente);
+        return produtoExistente.toProduto();
     }
 }
 

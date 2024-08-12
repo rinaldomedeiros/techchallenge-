@@ -4,9 +4,7 @@ import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ProdutoRepositoryPort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
-import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.models.Produto;
-import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,16 +38,17 @@ public class ProdutoServiceImpl implements ProdutoServicePort {
     }
 
     @Override
-    public void salvarProduto(ProdutoDTO produtoDTO) {
+    public ProdutoDTO salvarProduto(ProdutoDTO produtoDTO) {
         Produto produto = new Produto(produtoDTO);
-        this.produtoRepositoryPort.salvarProduto(produto);
+        Produto produtoSalvo = produtoRepositoryPort.salvarProduto(produto);
+        return produtoSalvo.toProdutoDTO();
     }
 
     @Override
-    public void atualizarProduto(Long id, ProdutoDTO produtoDTO) {
+    public ProdutoDTO atualizarProduto(Long id, ProdutoDTO produtoDTO) {
         Produto produto = new Produto(produtoDTO);
-        this.produtoRepositoryPort.atualizarProduto(id, produto);
-
+        Produto produtoAtualizado = produtoRepositoryPort.atualizarProduto(id, produto);
+        return produtoAtualizado.toProdutoDTO();
     }
 
     @Override
