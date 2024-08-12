@@ -95,6 +95,8 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 
 ⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*!
 
+--> *Endereço do Swagger: `http://localhost:9090/swagger-ui/index.htm`*
+
 ### 4.1 Cliente
 
 - *Criar Cliente:* POST `http://localhost:9090/api/clientes`
