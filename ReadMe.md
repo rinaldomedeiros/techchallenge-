@@ -3,8 +3,10 @@
 ### 1.1 Objetivo
 Este projeto tem como objetivo gerenciar todos os pedidos de uma lanchonete. Desde o início, com o cadastro de usuários, seleção de itens e pagamento, até o acompanhamento/atualização do status pela cozinha e notificação para retirada pelo cliente.
 
-### 1.2 Escopo
-Listar as principais funcionalidades do sistema, criação, leitura, atualização e exclusão (CRUD) das principais entidades.
+### 1.2 Event Storming
+Modelagem de processos e sistemas utilizada para mapeamento da dinâmica dos eventos relacionados a lanchonete. Utilizamos o fluxo do *DDD(Domain Driven Design)* para descrevemos como funciona a interação dos componentes entre sí. 
+
+*Link para o Board --> https://miro.com/app/board/uXjVK3CWCPY=/*
 
 ### 1.3 Como executar o Projeto Localmente?
 Para rodar o sistema localmente, você precisará de:
@@ -94,6 +96,8 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 # 🧰 4 API
 
 ⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo *1.3*!
+
+--> *Endereço do Swagger: `http://localhost:9090/swagger-ui/index.htm`*
 
 ### 4.1 Cliente
 
