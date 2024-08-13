@@ -1,7 +1,8 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +14,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemPedidoDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     private Integer quantidade;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Double valorItem;
 
-    @JsonBackReference
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private PedidoDTO pedidoDTO;
-    private ProdutoDTO produtoDTO;
+    @JsonIgnore
+    private PedidoDTO pedido;
+    private ProdutoDTO produto;
 
 }

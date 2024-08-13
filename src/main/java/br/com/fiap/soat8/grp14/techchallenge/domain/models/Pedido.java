@@ -53,6 +53,7 @@ public class Pedido {
                 this.valorTotal,
                 this.statusPedido,
                 this.cliente != null ? this.cliente.toClienteDTO() : null,
+                this.cliente != null ? this.cliente.getId() : null,		
                 convertToItemPedidoDTOList(this.itens));
     }
 

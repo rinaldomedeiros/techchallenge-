@@ -4,10 +4,12 @@ import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ClienteDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Cliente {
 
     private Long id;
@@ -16,10 +18,12 @@ public class Cliente {
     private String cpf;
 
     public Cliente(ClienteDTO clienteDTO) {
-        this.id = clienteDTO.getId();
-        this.email = clienteDTO.getEmail();
-        this.nome = clienteDTO.getNome();
-        this.cpf = clienteDTO.getCpf();
+		if(clienteDTO != null) {
+			this.id    = clienteDTO.getId();
+			this.email = clienteDTO.getEmail();
+			this.nome  = clienteDTO.getNome();
+			this.cpf   = clienteDTO.getCpf();
+		}
     }
 
     public ClienteDTO toClienteDTO() {

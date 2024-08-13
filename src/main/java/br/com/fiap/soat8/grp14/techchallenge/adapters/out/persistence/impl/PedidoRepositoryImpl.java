@@ -29,10 +29,11 @@ public class PedidoRepositoryImpl implements PedidoRepositoryPort {
     }
 
     @Override
-    public void salvarPedido(Pedido pedido) {
+    public Pedido salvarPedido(Pedido pedido) {
         PedidoEntity pedidoEntity = new PedidoEntity(pedido);
         pedidoEntity.getItens().forEach(itemPedidoEntity -> itemPedidoEntity.setPedidoEntity(pedidoEntity));
-        this.pedidoSpringRepository.save(pedidoEntity);
+        PedidoEntity pedidoSalvo = pedidoSpringRepository.save(pedidoEntity);
+        return pedidoSalvo.toPedido();
     }
 
     @Override
