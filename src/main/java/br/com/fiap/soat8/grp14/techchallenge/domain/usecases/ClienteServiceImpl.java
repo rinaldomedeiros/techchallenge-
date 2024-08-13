@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ClienteDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ClienteServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ClienteRepositoryPort;
+import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.DataIntegrityException;
 import br.com.fiap.soat8.grp14.techchallenge.domain.models.Cliente;
 import jakarta.validation.Valid;
 
@@ -37,11 +38,16 @@ public class ClienteServiceImpl implements ClienteServicePort {
     }
 
     @Override
-    public ClienteDTO salvarCliente(@Valid ClienteDTO clienteDTO) {
-        Cliente cliente = new Cliente(clienteDTO);
+	public ClienteDTO salvarCliente(@Valid ClienteDTO clienteDTO) {
+		Cliente cliente = new Cliente(clienteDTO);
+		Cliente clienteExistente = clienteRepositoryPort.buscarCliente(cliente.getCpf());
+		if (clienteExistente != null) {
+			throw new DataIntegrityException("CPF já cadastrado.");
+		}
+		
         Cliente clienteSalvo = clienteRepositoryPort.salvarCliente(cliente);
         return clienteSalvo.toClienteDTO();
-    }
+	}
 
     @Override
     public void excluirCliente(Long id) {
@@ -53,7 +59,7 @@ public class ClienteServiceImpl implements ClienteServicePort {
     public ClienteDTO atualizarCliente(Long id, ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente(clienteDTO);
         Cliente clienteAtualizado = clienteRepositoryPort.atualizarCliente(id, cliente);
-        return cliente.toClienteDTO();
+        return clienteAtualizado.toClienteDTO();
 
     }
 

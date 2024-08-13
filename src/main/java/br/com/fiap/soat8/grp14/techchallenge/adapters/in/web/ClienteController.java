@@ -58,6 +58,7 @@ public class ClienteController {
     }
 
     @PutMapping(value = "/{id}")
+    @Operation(summary = "Este endpoint é responsável por atualizar as informações do cliente.")
     public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
         ClienteDTO clienteAtualizado = clienteServicePort.atualizarCliente(id, clienteDTO);
         return ResponseEntity.ok(clienteAtualizado);

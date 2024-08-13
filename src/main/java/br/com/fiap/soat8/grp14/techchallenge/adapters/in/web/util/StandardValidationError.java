@@ -15,5 +15,8 @@ import java.util.List;
 @Setter
 @SuperBuilder
 public class StandardValidationError extends StandardError {
-    private List<ValidationError> errorList;
+	
+	private static final long serialVersionUID = 1051329724359530313L;
+
+	private List<ValidationError> errorList;
 }
