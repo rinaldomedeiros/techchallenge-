@@ -12,14 +12,14 @@ import jakarta.validation.Valid;
 
 @Service
 public class ClienteServiceImpl implements ClienteServicePort {
-	private ClienteRepositoryPort clienteRepositoryPort;
+    private ClienteRepositoryPort clienteRepositoryPort;
 
     public ClienteServiceImpl(ClienteRepositoryPort repository) {
         this.clienteRepositoryPort = repository;
     }
 
     @Override
-    public List<ClienteDTO> listarTodos()  {
+    public List<ClienteDTO> listarTodos() {
         List<Cliente> clientes = clienteRepositoryPort.listarTodos();
         return clientes.stream().map(Cliente::toClienteDTO).toList();
     }
@@ -29,24 +29,32 @@ public class ClienteServiceImpl implements ClienteServicePort {
         Cliente cliente = clienteRepositoryPort.buscarCliente(cpf);
         return cliente.toClienteDTO();
     }
-    
+
     @Override
     public ClienteDTO buscarCliente(Long id) {
-    	Cliente cliente = clienteRepositoryPort.buscarCliente(id);
+        Cliente cliente = clienteRepositoryPort.buscarCliente(id);
         return cliente.toClienteDTO();
     }
 
-	@Override
-	public ClienteDTO salvarCliente(@Valid ClienteDTO clienteDTO) {
-		Cliente cliente = new Cliente(clienteDTO);
+    @Override
+    public ClienteDTO salvarCliente(@Valid ClienteDTO clienteDTO) {
+        Cliente cliente = new Cliente(clienteDTO);
         Cliente clienteSalvo = clienteRepositoryPort.salvarCliente(cliente);
         return clienteSalvo.toClienteDTO();
-	}
+    }
 
-	@Override
+    @Override
     public void excluirCliente(Long id) {
         Cliente cliente = clienteRepositoryPort.buscarCliente(id);
         clienteRepositoryPort.excluirCliente(cliente);
+    }
+
+    @Override
+    public ClienteDTO atualizarCliente(Long id, ClienteDTO clienteDTO) {
+        Cliente cliente = new Cliente(clienteDTO);
+        Cliente clienteAtualizado = clienteRepositoryPort.atualizarCliente(id, cliente);
+        return cliente.toClienteDTO();
+
     }
 
 }

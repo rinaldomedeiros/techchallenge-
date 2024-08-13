@@ -15,6 +15,6 @@ public interface ClienteRepositoryPort {
 
 	void excluirCliente(Cliente cliente);
 
-	void atualizarCliente(Long id, Cliente cliente);
+	Cliente atualizarCliente(Long id, Cliente cliente);
 	
 }
