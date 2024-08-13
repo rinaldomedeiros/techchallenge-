@@ -12,6 +12,9 @@ services:
         condition: service_healthy
     networks:
       - techchallenge_net
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
 
   db:
     image: postgres:16.2
@@ -27,6 +30,8 @@ services:
     volumes:
       - dbdata_techchallenge:/var/lib/postgresql/data
       - ./src/main/resources/db/init_database.sql:/docker-entrypoint-initdb.d/init_database.sql
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
       interval: 30s
@@ -43,4 +48,3 @@ networks:
   techchallenge_net:
     driver: bridge
 #    external: true
-
