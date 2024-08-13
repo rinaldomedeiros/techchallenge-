@@ -3,8 +3,10 @@ package br.com.fiap.soat8.grp14.techchallenge.adapters.in.web;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
-import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/produtos")
+@Order(2)
+@Tag(name = "Produto", description = "API REST para cadastro e controle de pedidos")
 public class ProdutoController {
 
     private final ProdutoServicePort produtoServicePort;

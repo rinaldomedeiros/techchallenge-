@@ -71,7 +71,7 @@ public class PedidoEntity extends BaseEntity {
             this.dataPedido = pedido.getDataPedido();
             this.valorTotal = pedido.getValorTotal();
             this.statusPedido = pedido.getStatusPedido();
-            this.clienteEntity = new ClienteEntity(pedido.getCliente());
+            this.clienteEntity = pedido.getCliente() != null ? new ClienteEntity(pedido.getCliente()) : null;
             this.itens = pedido.getItens().stream().map(ItemPedidoEntity::new).collect(Collectors.toList());
         }
     }

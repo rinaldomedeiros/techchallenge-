@@ -13,28 +13,34 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoDTO {
 
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer numero;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime dataPedido;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Double valorTotal;
 
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private StatusPedido statusPedido;
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private ClienteDTO cliente;
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long clienteId;
 
     private List<ItemPedidoDTO> itens;
 

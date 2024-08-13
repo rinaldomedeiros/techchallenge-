@@ -10,5 +10,5 @@ public interface PedidoServicePort {
 
     List<PedidoDTO> buscarPedidos();
 
-    void salvarPedido(PedidoDTO pedido) throws EmptyItensException;
+    PedidoDTO salvarPedido(PedidoDTO pedido) throws EmptyItensException;
 }

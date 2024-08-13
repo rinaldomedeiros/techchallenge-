@@ -9,7 +9,7 @@ public interface PedidoRepositoryPort {
 
     List<Pedido> buscarTodos();
 
-    void salvarPedido(Pedido pedido);
+    Pedido salvarPedido(Pedido pedido);
 
     Optional<Integer> obterUltimoNumeroPedido();
 }

@@ -24,8 +24,8 @@ public class ItemPedido {
         this.id = itemPedidoDTO.getId();
         this.quantidade = itemPedidoDTO.getQuantidade();
         this.valorItem = itemPedidoDTO.getValorItem();
-        this.pedido = itemPedidoDTO.getPedidoDTO() != null ? new Pedido(itemPedidoDTO.getPedidoDTO()) : null;
-        this.produto = itemPedidoDTO.getProdutoDTO() != null ? new Produto(itemPedidoDTO.getProdutoDTO()) : null;
+        this.pedido = itemPedidoDTO.getPedido() != null ? new Pedido(itemPedidoDTO.getPedido()) : null;
+        this.produto = itemPedidoDTO.getProduto() != null ? new Produto(itemPedidoDTO.getProduto()) : null;
     }
 
     public ItemPedidoDTO toItemPedidoDTO() {
