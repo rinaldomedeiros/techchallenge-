@@ -101,7 +101,10 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 
 Este documento descreve os endpoints disponíveis na API, suas funcionalidades e como utilizá-los.
 
-⚠️ Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo **1.3 "Como executar o Projeto Localmente?"**
+⚠️ **Avisos**
+- Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo **1.3 "Como executar o Projeto Localmente?"**.
+- Para metodos de PUT e POST não é necessário incluir o *id*.
+
 
 **🌐 Swagger**
 Você pode acessar a documentação interativa da API via Swagger pelo seguinte link: [Swagger UI](http://localhost:9090/swagger-ui/index.html).
@@ -310,22 +313,11 @@ Você pode acessar a documentação interativa da API via Swagger pelo seguinte 
   
     ```json
     {
-      "id": "number",
-      "numero": "number",
-      "dataPedido": "string",
-      "valorTotal": "number",
-      "statusPedido": "string",
-      "cliente": {
-        "id": "number",
-        "email": "string",
-        "nome": "string",
-        "cpf": "string"
-      },
+
+      "clienteId": "number",
       "itens": [
         {
-          "id": "number",
           "quantidade": "number",
-          "valorItem": "number",
           "produto": {
             "id": "number",
             "nome": "string",
