@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.ClienteSpringRepository;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.PedidoSpringRepository;
 import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.PedidoEntity;
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.PedidoRepositoryPort;
@@ -17,9 +18,11 @@ import br.com.fiap.soat8.grp14.techchallenge.domain.models.Pedido;
 public class PedidoRepositoryImpl implements PedidoRepositoryPort {
 
     private final PedidoSpringRepository pedidoSpringRepository;
+    private final ClienteSpringRepository clienteSpringRepository;
 
-    public PedidoRepositoryImpl(PedidoSpringRepository pedidoSpringRepository) {
+    public PedidoRepositoryImpl(PedidoSpringRepository pedidoSpringRepository, ClienteSpringRepository clienteSpringRepository) {
         this.pedidoSpringRepository = pedidoSpringRepository;
+		this.clienteSpringRepository = clienteSpringRepository;
     }
 
     @Override
@@ -33,6 +36,11 @@ public class PedidoRepositoryImpl implements PedidoRepositoryPort {
         PedidoEntity pedidoEntity = new PedidoEntity(pedido);
         pedidoEntity.getItens().forEach(itemPedidoEntity -> itemPedidoEntity.setPedidoEntity(pedidoEntity));
         PedidoEntity pedidoSalvo = pedidoSpringRepository.save(pedidoEntity);
+        
+        if (pedidoEntity.getClienteEntity() != null && pedidoEntity.getClienteEntity().getId() != null) {
+        	pedidoSalvo.setClienteEntity(this.clienteSpringRepository.findById(pedidoEntity.getClienteEntity().getId()).get());
+        }
+        
         return pedidoSalvo.toPedido();
     }
 
