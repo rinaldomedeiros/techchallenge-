@@ -28,6 +28,9 @@ public class ClienteServiceImpl implements ClienteServicePort {
     @Override
     public ClienteDTO buscarCliente(String cpf) {
         Cliente cliente = clienteRepositoryPort.buscarCliente(cpf);
+        if (cliente == null) {
+			throw new DataIntegrityException("CPF não encontrado.");
+		}
         return cliente.toClienteDTO();
     }
 

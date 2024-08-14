@@ -1,6 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,11 @@ public class ClienteRepositoryImpl implements ClienteRepositoryPort {
 
     @Override
     public Cliente buscarCliente(String cpf) {
-        return this.clienteSpringRepository.findByCpf(cpf)
-                .map(ClienteEntity::toCliente)
-                .orElseThrow(this::lancarException);
+        Optional<ClienteEntity> cliente = this.clienteSpringRepository.findByCpf(cpf);
+        if(cliente.isPresent()) {
+        	return cliente.get().toCliente();
+        }
+        return null; 
     }
 
 
