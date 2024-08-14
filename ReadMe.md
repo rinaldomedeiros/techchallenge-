@@ -17,7 +17,7 @@ Modelagem de processos e sistemas utilizada para mapeamento da dinâmica dos eve
 
 **Executando o sistema:**
 
-- Abra o terminal e execute o comando `docker compose up --build`.
+- Abra o terminal e execute o comando `docker compose up --build` na raiz do projeto.
 
 
 # 🌟 2. Arquitetura
@@ -57,7 +57,7 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 - **categoriaProduto:** Categoria do produto, como Lanche, Bebida, etc.
 
 ### Relacionamentos:
-- **Itens de Pedido:** Um produto pode estar associado a vários itens de pedido. Relacionamento muitos-para-muitos através da entidade Item de Pedido.
+- **Itens de Pedido:** Um produto pode estar associado a vários pedidos. Relacionamento muitos-para-muitos através da entidade Pedido.
 
 ### Funcionalidades:
 - Criar, atualizar e deletar produtos.
@@ -74,7 +74,7 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 
 ### Relacionamentos:
 - **Cliente:** Cada pedido é feito por um cliente. Relacionamento muitos-para-um.
-- **Itens de Pedido:** Um pedido contém vários itens. Relacionamento um-para-muitos.
+- **Itens de Pedido:** Um pedido contém vários itens.
 
 ### Funcionalidades:
 - Processar novos pedidos.
@@ -90,7 +90,7 @@ O sistema foi criado usando Java e Spring. A imagem usada é construída via Doc
 
 ### Relacionamentos:
 - **Produto:** Cada item de pedido está associado a um produto específico. Relacionamento muitos-para-um.
-- **Pedido:** Cada item de pedido está associado a um pedido. Relacionamento muitos-para-um.
+- **Pedido:** Cada item está associado a um pedido. Relacionamento muitos-para-um.
 
 ### Funcionalidades:
 - Calcular o custo total do item com base na quantidade e no preço do produto.
@@ -171,6 +171,12 @@ Você pode acessar a documentação interativa da API via Swagger pelo seguinte 
   - **Resposta de Sucesso:** `204 No Content`
 
 ### 4.2 Produto
+
+**CATEGORIA**
+* LANCHE
+* ACOMPANHAMENTO
+* BEBIDA
+* SOBREMESA
 
 - **Criar Produto**
   - **Descrição:** Adiciona um novo produto ao sistema.
