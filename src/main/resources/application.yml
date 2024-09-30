@@ -17,14 +17,13 @@ spring:
         hibernate:
             ddl-auto: none
 
-    #Configuração do pool de conexões do Tomcat
     tomcat:
         initial-size: 5
         max-active: 25
 
 springdoc:
     swagger-ui:
-        path:/swagger-ui.html:
+        path: /swagger-ui.ht
 
 logging:
     level:
