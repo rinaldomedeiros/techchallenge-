@@ -2,8 +2,7 @@ package br.com.fiap.soat8.grp14.techchallenge.application.ports.in;
 
 import java.util.List;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ClienteDTO;
-import br.com.fiap.soat8.grp14.techchallenge.adapters.dto.ProdutoDTO;
+import br.com.fiap.soat8.grp14.techchallenge.app.dto.cliente.ClienteDTO;
 import jakarta.validation.Valid;
 
 
@@ -20,6 +19,5 @@ public interface ClienteServicePort {
     void excluirCliente(Long id);
 
     ClienteDTO atualizarCliente(Long id, ClienteDTO clienteDTO);
-
 
 }

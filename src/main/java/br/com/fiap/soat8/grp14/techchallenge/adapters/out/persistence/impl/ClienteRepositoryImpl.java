@@ -5,21 +5,21 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.ClienteSpringRepository;
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.PedidoSpringRepository;
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.ClienteEntity;
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.PedidoEntity;
-import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ClienteRepositoryPort;
-import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
-import br.com.fiap.soat8.grp14.techchallenge.domain.models.Cliente;
+import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
+import br.com.fiap.soat8.grp14.techchallenge.data.repositories.PedidoRepository;
+import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
+import br.com.fiap.soat8.grp14.techchallenge.data.models.PedidoEntity;
+import br.com.fiap.soat8.grp14.techchallenge.presentation.service.ClienteRepositoryPort;
+import br.com.fiap.soat8.grp14.techchallenge.app.exceptions.EntityNotFoundException;
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.Cliente;
 
 @Service
 public class ClienteRepositoryImpl implements ClienteRepositoryPort {
 
-    private final ClienteSpringRepository clienteSpringRepository;
-    private final PedidoSpringRepository pedidoSpringRepository;
+    private final ClienteRepository clienteSpringRepository;
+    private final PedidoRepository pedidoSpringRepository;
 
-    public ClienteRepositoryImpl(ClienteSpringRepository clienteSpringRepository, PedidoSpringRepository pedidoSpringRepository) {
+    public ClienteRepositoryImpl(ClienteRepository clienteSpringRepository, PedidoRepository pedidoSpringRepository) {
         this.clienteSpringRepository = clienteSpringRepository;
         this.pedidoSpringRepository = pedidoSpringRepository;
     }

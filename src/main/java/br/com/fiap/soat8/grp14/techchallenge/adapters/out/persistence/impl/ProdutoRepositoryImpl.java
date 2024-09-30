@@ -1,12 +1,12 @@
 package br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.impl;
 
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.ProdutoSpringRepository;
-import br.com.fiap.soat8.grp14.techchallenge.application.ports.out.ProdutoRepositoryPort;
-import br.com.fiap.soat8.grp14.techchallenge.domain.enums.CategoriaProduto;
-import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.DataIntegrityException;
-import br.com.fiap.soat8.grp14.techchallenge.domain.exceptions.EntityNotFoundException;
-import br.com.fiap.soat8.grp14.techchallenge.domain.models.Produto;
-import br.com.fiap.soat8.grp14.techchallenge.adapters.out.persistence.entities.ProdutoEntity;
+import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ProdutoRepository;
+import br.com.fiap.soat8.grp14.techchallenge.presentation.service.ProdutoRepositoryPort;
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.CategoriaProduto;
+import br.com.fiap.soat8.grp14.techchallenge.app.exceptions.DataIntegrityException;
+import br.com.fiap.soat8.grp14.techchallenge.app.exceptions.EntityNotFoundException;
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.Produto;
+import br.com.fiap.soat8.grp14.techchallenge.data.models.ProdutoEntity;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 @Component
 public class ProdutoRepositoryImpl implements ProdutoRepositoryPort {
 
-    private final ProdutoSpringRepository produtoSpringRepository;
+    private final ProdutoRepository produtoSpringRepository;
 
-    public ProdutoRepositoryImpl(ProdutoSpringRepository produtoSpringRepository) {
+    public ProdutoRepositoryImpl(ProdutoRepository produtoSpringRepository) {
         this.produtoSpringRepository = produtoSpringRepository;
     }
 
