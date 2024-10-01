@@ -17,7 +17,11 @@ Modelagem de processos e sistemas utilizada para mapeamento da dinâmica dos eve
 
 **Executando o sistema:**
 
-- Abra o terminal e execute o comando `docker compose up --build` na raiz do projeto.
+- Abra o terminal e abra a pasta `iac`.
+- Execute o comando `minikube-start`para criar um Cluster local.
+- Após a criação do Cluster local realize o **apply** de todos os manifestos do kubernetes com o comando `kubectl apply -f kubernetes`.
+- Aguarde até todos os conteiners ficarem com o status **running** (acompanhe com o comando `kubectl get pods`).
+- Agora efetue o comando `minikube service techchallenge-backend --url`.
 
 
 # 🌟 2. Arquitetura

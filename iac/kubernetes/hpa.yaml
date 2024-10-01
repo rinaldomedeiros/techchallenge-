@@ -1,7 +1,6 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  namespace: techchallenge-backend
   name: backend-hpa
 spec:
   scaleTargetRef:

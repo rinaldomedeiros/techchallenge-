@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: techchallenge-backend
   name: techchallenge-backend
 spec:
   replicas: 3
@@ -20,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: sickbanger/techchallenge:v1.1
+        image: sickbanger/techchallenge-backend:v1.6
         ports:
         - containerPort: 8080
         command: ["java", "-jar"]
@@ -107,4 +106,4 @@ spec:
           claimName: postgres-pvc
       - name: init-script
         configMap:
-          name: postgres-init-script
+          name: backend-config
