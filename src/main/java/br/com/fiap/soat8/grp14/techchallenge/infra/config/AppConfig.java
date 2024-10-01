@@ -1,7 +1,7 @@
 package br.com.fiap.soat8.grp14.techchallenge.infra.config;
 
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.CheckoutPort;
-import br.com.fiap.soat8.grp14.techchallenge.presentation.service.FakeCheckoutAdapter;
+import br.com.fiap.soat8.grp14.techchallenge.infra.http.FakeCheckoutAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

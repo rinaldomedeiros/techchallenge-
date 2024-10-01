@@ -14,13 +14,13 @@ import br.com.fiap.soat8.grp14.techchallenge.core.usecases.PedidoServiceImpl;
 @Configuration
 public class BeanConfiguration {
 
-    @Bean
-    ProdutoServicePort produtoService(ProdutoRepositoryPort produtoRepositoryPort) {
-        return new ProdutoServiceImpl(produtoRepositoryPort);
-    }
-
-    @Bean
-    PedidoServicePort pedidoService(PedidoRepositoryPort pedidoRepositoryPort) {
-        return new PedidoServiceImpl(pedidoRepositoryPort);
-    }
+//    @Bean
+//    ProdutoServicePort produtoService(ProdutoRepositoryPort produtoRepositoryPort) {
+//        return new ProdutoServiceImpl(produtoRepositoryPort);
+//    }
+//
+//    @Bean
+//    PedidoServicePort pedidoService(PedidoRepositoryPort pedidoRepositoryPort) {
+//        return new PedidoServiceImpl(pedidoRepositoryPort);
+//    }
 }

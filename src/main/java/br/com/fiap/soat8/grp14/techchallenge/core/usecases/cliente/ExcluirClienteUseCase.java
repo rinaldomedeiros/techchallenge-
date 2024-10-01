@@ -5,7 +5,9 @@ import br.com.fiap.soat8.grp14.techchallenge.core.interfaces.AbstractUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ExcluirClienteUseCase extends AbstractUseCase<Long, Boolean> {
 
     private final ClienteRepository repository;

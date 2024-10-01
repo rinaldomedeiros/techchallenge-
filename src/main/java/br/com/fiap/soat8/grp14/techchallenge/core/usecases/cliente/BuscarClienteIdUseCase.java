@@ -6,9 +6,11 @@ import br.com.fiap.soat8.grp14.techchallenge.core.interfaces.AbstractUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class BuscarClienteIdUseCase extends AbstractUseCase<Long, Cliente> {
     private static final String ID_NAO_ENCONTRADO = "Cliente não encontrado";
 

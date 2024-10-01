@@ -1,4 +1,4 @@
-package br.com.fiap.soat8.grp14.techchallenge.presentation.service;
+package br.com.fiap.soat8.grp14.techchallenge.infra.http;
 
 import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.CheckoutPort;
 import com.mercadopago.MercadoPagoConfig;
