@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.cliente.ClienteInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.services.ClienteService;
+import lombok.AllArgsConstructor;
 import org.springframework.core.annotation.Order;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,14 +20,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/clientes")
 @Tag(name = "Cliente", description = "API REST para cadastro e controle de clientes")
 @Order(1)
+@AllArgsConstructor
 public class ClienteController {
 
     private final ClienteService clienteService;
 
-    public ClienteController(ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
-    
     @GetMapping
     @Operation(summary = "Este endpoint é responsável por listar os clientes cadastrados.")
     public ResponseEntity<List<ClienteDTO>> listarTodos() {

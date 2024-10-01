@@ -24,7 +24,6 @@ public class AtualizarClienteUseCase extends AbstractUseCase<ClienteEntity, Clie
                 clienteEntity.getId()).orElseThrow(() -> new EntityNotFoundException(CLIENTE_NAO_ENCONTRADO)
         );
 
-        this.repository.save(clienteEntity);
-        return mapper.map(clienteEntity, Cliente.class);
+        return mapper.map(this.repository.save(clienteEntity), Cliente.class);
     }
 }

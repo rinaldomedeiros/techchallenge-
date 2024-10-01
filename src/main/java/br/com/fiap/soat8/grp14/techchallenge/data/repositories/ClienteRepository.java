@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClienteRepository extends BaseRepository<ClienteEntity> {
-	public Optional<ClienteEntity> findByCpf(String cpf);
+	Optional<ClienteEntity> findByCpf(String cpf);
 }
