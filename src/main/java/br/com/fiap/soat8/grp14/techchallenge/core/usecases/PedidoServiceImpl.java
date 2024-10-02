@@ -6,14 +6,13 @@ import java.util.stream.Collectors;
 
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.itempedido.ItemPedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
-import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.PedidoServicePort;
 import br.com.fiap.soat8.grp14.techchallenge.presentation.service.PedidoRepositoryPort;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import br.com.fiap.soat8.grp14.techchallenge.app.exceptions.EmptyItensException;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Cliente;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
 
-public class PedidoServiceImpl implements PedidoServicePort {
+public class PedidoServiceImpl {
 
     private final PedidoRepositoryPort pedidoRepositoryPort;
 
@@ -21,18 +20,15 @@ public class PedidoServiceImpl implements PedidoServicePort {
         this.pedidoRepositoryPort = pedidoRepositoryPort;
     }
 
-    @Override
     public void processarPedido(Long pedidoId) {
         //    pedidoServicePort.iniciarCheckout(pedidoId);
     }
 
-    @Override
     public List<PedidoDTO> buscarPedidos() {
         List<Pedido> pedidos = this.pedidoRepositoryPort.buscarTodos();
         return pedidos.stream().map(Pedido::toPedidoDTO).collect(Collectors.toList());
     }
 
-    @Override
     public PedidoDTO salvarPedido(PedidoDTO pedidoDTO) throws EmptyItensException {
         if (pedidoDTO.getItens() == null || pedidoDTO.getItens().isEmpty())
             throw new EmptyItensException("Erro ao salvar o pedido: deve ser selecionado pelo menos um produto para realizar o pedido.");

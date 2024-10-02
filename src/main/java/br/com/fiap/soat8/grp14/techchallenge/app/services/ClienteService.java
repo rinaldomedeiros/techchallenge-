@@ -2,10 +2,7 @@ package br.com.fiap.soat8.grp14.techchallenge.app.services;
 
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.cliente.ClienteDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.cliente.ClienteInsertDTO;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.cliente.BuscarClienteCpfUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.cliente.BuscarClienteIdUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.cliente.CriarClienteUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.cliente.ListarClienteUseCase;
+import br.com.fiap.soat8.grp14.techchallenge.core.usecases.cliente.*;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -22,6 +19,8 @@ public class ClienteService {
     private final BuscarClienteCpfUseCase buscarClienteCpfUseCase;
     private final ListarClienteUseCase listarClienteUseCase;
     private final BuscarClienteIdUseCase buscarClienteIdUseCase;
+    private final ExcluirClienteUseCase excluirClienteUseCase;
+    private final AtualizarClienteUseCase atualizarClienteUseCase;
 
     private final ModelMapper mapper;
 
@@ -38,19 +37,21 @@ public class ClienteService {
         return mapper.map(this.buscarClienteCpfUseCase.execute(cpf), ClienteDTO.class);
     }
 
-    public ClienteDTO buscarCliente(Long id){
+    public ClienteDTO buscarClienteId(Long id){
         return mapper.map(this.buscarClienteIdUseCase.execute(id), ClienteDTO.class);
     }
 
+    @Transactional
     public ClienteDTO salvarCliente(@Valid ClienteInsertDTO clienteInsertDTO){
         return mapper.map(this.criarClienteUseCase.execute(mapper.map(clienteInsertDTO, ClienteEntity.class)), ClienteDTO.class) ;
     }
 
     public void excluirCliente(Long id){
-
+        this.excluirClienteUseCase.execute(id);
     }
 
+    @Transactional
     public ClienteDTO atualizarCliente(Long id, ClienteDTO clienteDTO){
-        return null;
+        return mapper.map(this.atualizarClienteUseCase.execute(mapper.map(clienteDTO, ClienteEntity.class)), ClienteDTO.class);
     }
 }

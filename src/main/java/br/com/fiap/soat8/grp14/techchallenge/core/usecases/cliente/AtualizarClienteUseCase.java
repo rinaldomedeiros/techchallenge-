@@ -5,7 +5,6 @@ import br.com.fiap.soat8.grp14.techchallenge.core.entities.Cliente;
 import br.com.fiap.soat8.grp14.techchallenge.core.interfaces.AbstractUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
-import org.modelmapper.ModelMapper;
 
 public class AtualizarClienteUseCase extends AbstractUseCase<ClienteEntity, Cliente> {
 
@@ -13,8 +12,7 @@ public class AtualizarClienteUseCase extends AbstractUseCase<ClienteEntity, Clie
 
     private final ClienteRepository repository;
 
-    public AtualizarClienteUseCase(ModelMapper mapper, ClienteRepository repository) {
-        super(mapper);
+    public AtualizarClienteUseCase(ClienteRepository repository) {
         this.repository = repository;
     }
 
@@ -24,6 +22,6 @@ public class AtualizarClienteUseCase extends AbstractUseCase<ClienteEntity, Clie
                 clienteEntity.getId()).orElseThrow(() -> new EntityNotFoundException(CLIENTE_NAO_ENCONTRADO)
         );
 
-        return mapper.map(this.repository.save(clienteEntity), Cliente.class);
+        return getModelMapper().map(this.repository.save(clienteEntity), Cliente.class);
     }
 }

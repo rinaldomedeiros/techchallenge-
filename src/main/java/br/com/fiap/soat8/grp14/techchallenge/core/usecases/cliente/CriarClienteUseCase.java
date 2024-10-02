@@ -5,7 +5,6 @@ import br.com.fiap.soat8.grp14.techchallenge.core.entities.Cliente;
 import br.com.fiap.soat8.grp14.techchallenge.core.interfaces.AbstractUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,8 +17,7 @@ public class CriarClienteUseCase extends AbstractUseCase<ClienteEntity, Cliente>
     private final ClienteRepository repository;
 
 
-    protected CriarClienteUseCase(ModelMapper mapper, ClienteRepository repository) {
-        super(mapper);
+    public CriarClienteUseCase(ClienteRepository repository) {
         this.repository = repository;
     }
 
@@ -31,6 +29,6 @@ public class CriarClienteUseCase extends AbstractUseCase<ClienteEntity, Cliente>
         }
 
         ClienteEntity clienteSalvo = repository.save(clienteEntity);
-        return mapper.map(clienteSalvo, Cliente.class);
+        return getModelMapper().map(clienteSalvo, Cliente.class);
     }
 }

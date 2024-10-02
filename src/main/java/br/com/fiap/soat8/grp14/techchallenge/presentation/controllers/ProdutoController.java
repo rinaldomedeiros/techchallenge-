@@ -1,18 +1,9 @@
 package br.com.fiap.soat8.grp14.techchallenge.presentation.controllers;
 
-import br.com.fiap.soat8.grp14.techchallenge.app.dto.produto.ProdutoDTO;
-import br.com.fiap.soat8.grp14.techchallenge.application.ports.in.ProdutoServicePort;
-import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.CategoriaProduto;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/produtos")

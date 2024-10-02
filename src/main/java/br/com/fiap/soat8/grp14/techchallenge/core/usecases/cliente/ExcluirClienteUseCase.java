@@ -4,7 +4,6 @@ import br.com.fiap.soat8.grp14.techchallenge.core.entities.Cliente;
 import br.com.fiap.soat8.grp14.techchallenge.core.interfaces.AbstractUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +12,7 @@ public class ExcluirClienteUseCase extends AbstractUseCase<Long, Boolean> {
     private final ClienteRepository repository;
     private final BuscarClienteIdUseCase buscarClienteIdUseCase;
 
-    public ExcluirClienteUseCase(ModelMapper mapper, ClienteRepository repository, BuscarClienteIdUseCase buscarClienteIdUseCase) {
-        super(mapper);
+    public ExcluirClienteUseCase(ClienteRepository repository, BuscarClienteIdUseCase buscarClienteIdUseCase) {
         this.repository = repository;
         this.buscarClienteIdUseCase = buscarClienteIdUseCase;
     }
@@ -22,7 +20,7 @@ public class ExcluirClienteUseCase extends AbstractUseCase<Long, Boolean> {
     @Override
     public Boolean execute(Long id) {
         Cliente cliente = this.buscarClienteIdUseCase.execute(id);
-        repository.delete(mapper.map(cliente, ClienteEntity.class));
+        repository.delete(getModelMapper().map(cliente, ClienteEntity.class));
         return true;
     }
 }

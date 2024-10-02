@@ -5,19 +5,16 @@ import br.com.fiap.soat8.grp14.techchallenge.core.entities.Cliente;
 import br.com.fiap.soat8.grp14.techchallenge.core.interfaces.AbstractUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ClienteRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
+
 public class BuscarClienteIdUseCase extends AbstractUseCase<Long, Cliente> {
     private static final String ID_NAO_ENCONTRADO = "Cliente não encontrado";
 
     private final ClienteRepository repository;
 
-    public BuscarClienteIdUseCase(ModelMapper mapper, ClienteRepository repository) {
-        super(mapper);
+    public BuscarClienteIdUseCase(ClienteRepository repository) {
         this.repository = repository;
     }
 
@@ -28,6 +25,6 @@ public class BuscarClienteIdUseCase extends AbstractUseCase<Long, Cliente> {
             throw new DataIntegrityException(ID_NAO_ENCONTRADO);
         }
 
-        return mapper.map(clienteEntity.get(), Cliente.class);
+        return getModelMapper().map(clienteEntity.get(), Cliente.class);
     }
 }

@@ -31,10 +31,20 @@ public class ClienteController {
         return ResponseEntity.ok().body(this.clienteService.listarTodos());
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     @Operation(summary = "Este endpoint é responsável por consultar um cliente pelo CPF.")
     public ResponseEntity<ClienteDTO> buscarCliente(@PathVariable String cpf) {
         ClienteDTO clienteDTO = this.clienteService.buscarCliente(cpf);
+        if (clienteDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(clienteDTO);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Este endpoint é responsável por consultar um cliente pelo CPF.")
+    public ResponseEntity<ClienteDTO> buscarClienteId(@PathVariable Long id) {
+        ClienteDTO clienteDTO = this.clienteService.buscarClienteId(id);
         if (clienteDTO == null) {
             return ResponseEntity.notFound().build();
         }
