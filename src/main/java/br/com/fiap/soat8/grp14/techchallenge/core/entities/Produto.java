@@ -52,14 +52,10 @@ public class Produto {
 
     }
 
-
     public ProdutoDTO toProdutoDTO() {
 
         return new ProdutoDTO(this.id, this.nome, this.descricao, this.valor, this.categoriaProduto);
 
     }
 
-
 }
-
-
