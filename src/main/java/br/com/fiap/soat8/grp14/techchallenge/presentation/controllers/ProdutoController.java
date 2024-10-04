@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.produto.ProdutoDTO;
+import br.com.fiap.soat8.grp14.techchallenge.app.dto.produto.ProdutoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.services.ProdutoService;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.CategoriaProduto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,8 +35,8 @@ public class ProdutoController {
 
     @Operation(summary = "Este endpoint é responsável por cadastrar produtos.")
     @PostMapping
-    public ResponseEntity<ProdutoDTO> salvarProdutos(@Valid @RequestBody ProdutoDTO produtoDTO) {
-        ProdutoDTO produtoSalvo = produtoService.salvarProduto(produtoDTO);
+    public ResponseEntity<ProdutoDTO> salvarProdutos(@Validated @RequestBody ProdutoInsertDTO produtoInsertDTO) {
+        ProdutoDTO produtoSalvo = produtoService.salvarProduto(produtoInsertDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
     }
 

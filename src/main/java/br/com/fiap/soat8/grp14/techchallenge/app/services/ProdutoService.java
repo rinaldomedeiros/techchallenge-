@@ -31,23 +31,23 @@ public class ProdutoService {
     private final ModelMapper mapper;
 
     public List<ProdutoDTO> buscarProdutos() {
-        return this.listarProdutoUseCase.execute(true).stream().map(produto -> mapper.map(produto, ProdutoDTO.class)).toList();
+        return listarProdutoUseCase.execute(true).stream().map(produto -> mapper.map(produto, ProdutoDTO.class)).toList();
     }
 
     public ProdutoDTO buscarPorId(Long id) {
-        return mapper.map(this.buscarProdutoIdUseCase.execute(id), ProdutoDTO.class);
+        return mapper.map(buscarProdutoIdUseCase.execute(id), ProdutoDTO.class);
     }
 
     public List<ProdutoDTO> buscarPorCategoria(CategoriaProduto categoriaProduto) {
-        return this.buscarProdutoCategoriaUseCase.execute(categoriaProduto).stream().map(produto -> mapper.map(produto, ProdutoDTO.class)).toList();
+        return buscarProdutoCategoriaUseCase.execute(categoriaProduto).stream().map(produto -> mapper.map(produto, ProdutoDTO.class)).toList();
     }
 
     public ProdutoDTO salvarProduto(ProdutoInsertDTO produtoInsertDTO) {
-        return mapper.map(this.criarProdutoUseCase.execute(mapper.map(produtoInsertDTO, ProdutoEntity.class)), ProdutoDTO.class);
+        return mapper.map(criarProdutoUseCase.execute(mapper.map(produtoInsertDTO, ProdutoEntity.class)), ProdutoDTO.class);
     }
 
     public ProdutoDTO atualizarProduto(Long id, ProdutoDTO produtoDTO) {
-        return mapper.map(this.atualizarProdutoUseCase.execute(mapper.map(produtoDTO, ProdutoEntity.class)), ProdutoDTO.class);
+        return mapper.map(atualizarProdutoUseCase.execute(mapper.map(produtoDTO, ProdutoEntity.class)), ProdutoDTO.class);
     }
 
     public void deletarProduto(Long id) {
