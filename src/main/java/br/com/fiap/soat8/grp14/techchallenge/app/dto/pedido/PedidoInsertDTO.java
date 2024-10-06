@@ -20,7 +20,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PedidoDTO {
+
+public class PedidoInsertDTO {
 
     private Long id;
 
@@ -49,5 +50,6 @@ public class PedidoDTO {
     @Size(min = 1, message = "O pedido deve conter ao menos um item")
     @Valid
     private List<ItemPedidoDTO> itens;
+
 
 }
