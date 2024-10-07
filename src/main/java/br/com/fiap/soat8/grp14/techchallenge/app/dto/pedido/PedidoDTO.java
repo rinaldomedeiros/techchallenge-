@@ -24,23 +24,16 @@ public class PedidoDTO {
 
     private Long id;
 
-    @NotNull(message = "o campo numero é obirgatório")
-    @Min(0)
     private Integer numero;
 
     @NotNull(message = "a data do pedido não pode ser nula")
-    @FutureOrPresent(message = "a data do pedido deve estar no presente ou no futuro do momento atual")
     private LocalDateTime dataPedido;
 
-    @NotNull(message = "o campo valor é obrigatório")
-    @Min(0)
     private Double valorTotal;
 
     @NotNull(message = "O status do pedido não pode ser nulo")
     private StatusPedido statusPedido;
 
-    @NotNull(message = "O cliente não pode ser nulo")
-    @Valid
     private ClienteDTO cliente;
 
     private Long clienteId;
