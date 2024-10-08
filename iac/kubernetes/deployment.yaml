@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: sickbanger/techchallenge-backend:v1.6
+        image: sickbanger/techchallenge-backend:v1.7
         ports:
         - containerPort: 8080
         command: ["java", "-jar"]
@@ -41,9 +41,15 @@ spec:
               name: backend-config
               key: DB_NAME
         - name: DB_USER
-          value: "techchallenge_usr"
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_USER
         - name: DB_PASSWORD
-          value: "P0o9i8u7"
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PASSWORD
         resources:
           limits:
             cpu: 300m
@@ -51,8 +57,18 @@ spec:
           requests:
             cpu: 150m
             memory: 256Mi
+        startupProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}"
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          failureThreshold: 5
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -72,9 +88,15 @@ spec:
         image: postgres:16.2
         env:
         - name: POSTGRES_USER
-          value: "postgres"
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_USER
         - name: POSTGRES_PASSWORD
-          value: "P0o9i8u7"
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_PASSWORD
         - name: POSTGRES_DB
           value: "techchallenge"
         ports:

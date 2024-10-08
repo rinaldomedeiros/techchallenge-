@@ -12,22 +12,55 @@ Modelagem de processos e sistemas utilizada para mapeamento da dinâmica dos eve
 
 ⚠ Para rodar o sistema localmente, você precisará de:
 
-- Uma IDE compatível para baixar e abrir o repositório, como IntelliJ IDEA, Eclipse, VS Code e etc.
-- Docker instalado para a execução dos containers.
-
-**Executando o sistema:**
-
-- Abra o terminal e abra a pasta `iac`.
-- Execute o comando `minikube-start`para criar um Cluster local.
-- Após a criação do Cluster local realize o **apply** de todos os manifestos do kubernetes com o comando `kubectl apply -f kubernetes`.
-- Aguarde até todos os conteiners ficarem com o status **running** (acompanhe com o comando `kubectl get pods`).
-- Agora efetue o comando `minikube service techchallenge-backend --url`.
+- Uma IDE compatível, como IntelliJ IDEA, Eclipse, ou VS Code, para baixar e abrir o repositório.
+- Docker, Kubernetes, e Minikube instalados para a execução da infraestrutura.
 
 
-# 🌟 2. Arquitetura
+### 1.4 Inicie o Minikube:
+Abra o terminal, navegue até a pasta iac, e execute o comando:
 
-### 2.1 Visão Geral:
-O sistema foi criado usando Java e Spring. A imagem usada é construída via Docker usando o Dockerfile, que realiza o processo de build do artefato. O ambiente é orquestrado através do arquivo `docker-compose.yml`, que cria o banco de dados (Postgres) e suas respectivas tabelas.
+```bash
+minikube-start
+minikube addons enable metrics-server
+```
+
+Isso criará um Cluster Kubernetes local.
+
+### 1.5 Deploy dos Manifestos do Kubernetes:
+Após a criação do Cluster, aplique todos os manifestos do Kubernetes executando:
+
+```bash
+kubectl apply -f kubernetes
+```
+
+### 1.6 Verifique o Status dos Pods:
+Acompanhe o status dos pods até que todos estejam com o status Running:
+
+```bash
+kubectl get pods
+```
+
+### 1.7 Exponha o Serviço Backend:
+Para expor o serviço do backend, execute:
+
+```bash
+minikube service techchallenge-backend --url
+```
+
+Esse comando gerará uma URL. Copie a URL fornecida e adicione /swagger-ui/index.html no final, então cole-a no seu navegador para acessar a documentação do Swagger UI.
+
+***Importante:*** A janela do terminal onde você executou o comando minikube service techchallenge-backend --url deve permanecer aberta enquanto os endpoints da API estiverem ativos.
+
+### 1.8 Limitações de NodePort no Minikube:
+No Minikube, há uma limitação que impede a definição de um NodePort fixo, mesmo que configurado no manifesto `service.yaml`. Por isso, o comando `minikube service techchallenge-backend --url` é necessário para expor o serviço corretamente.
+
+### 2. Arquitetura
+
+## 2.1 Visão Geral: ##
+O sistema é construído utilizando Java com Spring Boot, e a imagem Docker do projeto é gerada automaticamente usando o `Dockerfile` e enviada ao DockerHub. No momento do apply dos manifestos, a imagem é baixada e o banco de dados é configurado automaticamente.
+
+- **Persistência de Dados:** Um PersistentVolumeClaim (PVC) garante que os dados do banco sejam preservados.
+- **Escalabilidade:** O sistema utiliza um Horizontal Pod Autoscaler (HPA) para ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
 
 ### 2.2 Diagrama de Arquitetura:
 ![Arquitetura Hexagonal](./assets/Arquitetura.gif)
