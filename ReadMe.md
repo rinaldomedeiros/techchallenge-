@@ -1,74 +1,88 @@
 # 💡 1. Introdução
 
-### 1.1 Objetivo
+## Objetivo ##
 Este projeto tem como objetivo gerenciar todos os pedidos de uma lanchonete. Desde o início, com o cadastro de usuários, seleção de itens e pagamento, até o acompanhamento/atualização do status pela cozinha e notificação para retirada pelo cliente.
 
-### 1.2 Event Storming
-Modelagem de processos e sistemas utilizada para mapeamento da dinâmica dos eventos relacionados a lanchonete. Utilizamos o fluxo do **DDD(Domain Driven Design)** para descrevemos como funciona a interação dos componentes entre sí. 
+### Como executar o Projeto Localmente?
 
-**Link para o Board --> https://miro.com/app/board/uXjVK3CWCPY=/**
-
-### 1.3 Como executar o Projeto Localmente?
-
-⚠ Para rodar o sistema localmente, você precisará de:
+Para rodar o sistema localmente, você precisará de:
 
 - Uma IDE compatível, como IntelliJ IDEA, Eclipse, ou VS Code, para baixar e abrir o repositório.
-- Docker, Kubernetes, e Minikube instalados para a execução da infraestrutura.
+- [Docker](https://docs.docker.com/engine/install/), [Kubernetes](https://kubernetes.io/docs/setup/), e [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) instalados para a execução da infraestrutura.
+- [K6](https://grafana.com/docs/k6/latest/set-up/install-k6/) instalado para execução do *stress-test* (opcional).
 
-
-### 1.4 Inicie o Minikube:
-Abra o terminal, navegue até a pasta iac, e execute o comando:
+### Inicie o Minikube:
+Abra o terminal, navegue até a pasta `iac` dentro do repositório, e execute os comandos:
 
 ```bash
 minikube-start
+```
+
+```bash
 minikube addons enable metrics-server
 ```
 
-Isso criará um Cluster Kubernetes local.
+Isso criará um Cluster Kubernetes local e habilitará o *Metric Server* no Minikube.
 
-### 1.5 Deploy dos Manifestos do Kubernetes:
-Após a criação do Cluster, aplique todos os manifestos do Kubernetes executando:
+### Deploy dos Manifestos do Kubernetes:
+Após a criação do Cluster, aplique todos os manifestos executando:
 
 ```bash
 kubectl apply -f kubernetes
 ```
 
-### 1.6 Verifique o Status dos Pods:
-Acompanhe o status dos pods até que todos estejam com o status Running:
+### Verifique o Status dos Pods:
+Acompanhe o status dos pods até que todos estejam com o status `Running`:
 
 ```bash
 kubectl get pods
 ```
 
-### 1.7 Exponha o Serviço Backend:
+### Exponha o Serviço Backend:
 Para expor o serviço do backend, execute:
 
 ```bash
 minikube service techchallenge-backend --url
 ```
 
-Esse comando gerará uma URL. Copie a URL fornecida e adicione /swagger-ui/index.html no final, então cole-a no seu navegador para acessar a documentação do Swagger UI.
+Esse comando gerará uma *URL*. Copie a URL fornecida e adicione ***/swagger-ui/index.html*** no final, então cole-a no seu navegador para acessar a documentação do *Swagger UI*.
 
-***Importante:*** A janela do terminal onde você executou o comando minikube service techchallenge-backend --url deve permanecer aberta enquanto os endpoints da API estiverem ativos.
+```bash
+EXEMPLO: url/swagger-ui/index.html
+```
 
-### 1.8 Limitações de NodePort no Minikube:
+**Importante:** A janela do terminal onde você executou o comando `minikube service techchallenge-backend --url` deve permanecer aberta enquanto os endpoints da API estiverem ativos.
+
+### Limitações de NodePort no Minikube:
 No Minikube, há uma limitação que impede a definição de um NodePort fixo, mesmo que configurado no manifesto `service.yaml`. Por isso, o comando `minikube service techchallenge-backend --url` é necessário para expor o serviço corretamente.
 
-### 2. Arquitetura
+### Stress Test
+Para executar um teste de carga, vá até o diretório raiz do repositório e uma vez que todos os passos anteriores foram executados altere somente a url onde o K6 irá executar o teste, levando em consideração as mesmas informações citadas no passo **Expor o Serviço Backend**.
 
-## 2.1 Visão Geral: ##
-O sistema é construído utilizando Java com Spring Boot, e a imagem Docker do projeto é gerada automaticamente usando o `Dockerfile` e enviada ao DockerHub. No momento do apply dos manifestos, a imagem é baixada e o banco de dados é configurado automaticamente.
+Em seguida execute o comando:
 
-- **Persistência de Dados:** Um PersistentVolumeClaim (PVC) garante que os dados do banco sejam preservados.
-- **Escalabilidade:** O sistema utiliza um Horizontal Pod Autoscaler (HPA) para ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
+```bash
+k6 run stress-test
+```
+
+Após isso uma janela irá abrir com o status do teste em tempo real. É possível acompanhar o status e a quantidade de Pods em execução com o comando `kubectl get pods -w` e também podemos ter uma visão a nível de recursos utilizados com o comando `kubectl top pods`.
+
+
+# 🌟  2. Arquitetura 
+
+## Visão Geral: ##
+O sistema é construído utilizando Java com Spring Boot, e a imagem Docker utilizada pelo `techchalenge-backend` é gerada automaticamente usando o `Dockerfile` e enviada ao *DockerHub*. No momento do apply dos manifestos, a imagem é baixada e o banco de dados é configurado automaticamente realizando também um *pull* de sua respectiva imagem.
+
+- **Persistência de Dados:** Um *PersistentVolumeClaim* garante que os dados do banco sejam preservados.
+- **Escalabilidade:** O sistema utiliza um *Horizontal Pod Autoscaler* (HPA) ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
 
 ### 2.2 Diagrama de Arquitetura:
-![Arquitetura Hexagonal](./assets/Arquitetura.gif)
+![Arquitetura Local do Kubernetes](./assets/local-arc.gif)
 
 
 # 📦 3. Domínios e Entidades
 
-## 3.1 Cliente
+## 3.1 Cliente ##
 
 ### Atributos:
 - **id (Long):** Identificador único do cliente.

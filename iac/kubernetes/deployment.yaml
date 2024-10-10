@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: techchallenge-backend
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: backend
@@ -52,18 +52,18 @@ spec:
               key: DB_PASSWORD
         resources:
           limits:
+            cpu: 500m
+            memory: 1Gi
+          requests:
             cpu: 300m
             memory: 512Mi
-          requests:
-            cpu: 150m
-            memory: 256Mi
         startupProbe:
           exec:
             command:
               - /bin/sh
               - -c
               - "pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}"
-          initialDelaySeconds: 60
+          initialDelaySeconds: 75
           periodSeconds: 10
           failureThreshold: 5
 

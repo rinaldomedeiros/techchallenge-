@@ -3,13 +3,14 @@ import { sleep } from 'k6';
 
 export let options = {
   stages: [
-    { duration: '30s', target: 500 },
-    { duration: '2m', target: 5000 },
-    { duration: '10s', target: 500 },
+    { duration: '30s', target: 100 },
+    { duration: '3m', target: 700 },
+    { duration: '5ms', target: 1000 },
   ],
+  vusMax: 1000,
 };
 
 export default function () {
-  let res = http.get('http://127.0.0.1:35261/swagger-ui/index.html');
+  let res = http.get('http://127.0.0.1:33803/swagger-ui/index.html');
   sleep(1);
 }
