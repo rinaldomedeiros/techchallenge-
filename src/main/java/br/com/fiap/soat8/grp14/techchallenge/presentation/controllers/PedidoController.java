@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,25 +26,6 @@ public class PedidoController {
     private final PedidoService pedidoService;
 
 
-//    private final PedidoServicePort pedidoServicePort;
-//
-//    public PedidoController(PedidoServicePort pedidoServicePort) {
-//        this.pedidoServicePort = pedidoServicePort;
-//    }
-//
-//    @PostMapping
-//    @Operation(summary = "Este endpoint é responsável por criar o pedido (Fake checkout).")
-//    public ResponseEntity<PedidoDTO> salvarPedidos(@RequestBody PedidoDTO pedidoDTO) throws EmptyItensException {
-//        PedidoDTO pedidoSalvo = pedidoServicePort.salvarPedido(pedidoDTO);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoSalvo);
-//    }
-//
-//    @GetMapping
-//    @Operation(summary = "Este endpoint é responsável por listar os pedidos.")
-//    public ResponseEntity<List<PedidoDTO>> findAll() {
-//        return ResponseEntity.ok().body(pedidoServicePort.buscarPedidos());
-//    }
-
     @Operation(summary = "Este endpoint é responsável por listar os pedidos.")
     @GetMapping
     public ResponseEntity<List<PedidoDTO>> getPedidos() {
@@ -52,7 +34,7 @@ public class PedidoController {
 
     @PostMapping
     @Operation(summary = "Este endpoint é responsável por criar o pedido (Fake checkout).")
-    public ResponseEntity<PedidoDTO> salvarPedidos(@RequestBody PedidoInsertDTO pedidoInsertDTO) {
+    public ResponseEntity<PedidoDTO> salvarPedidos(@Validated @RequestBody PedidoInsertDTO pedidoInsertDTO) {
         PedidoDTO pedidoSalvo = pedidoService.salvarPedido(pedidoInsertDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoSalvo);
     }

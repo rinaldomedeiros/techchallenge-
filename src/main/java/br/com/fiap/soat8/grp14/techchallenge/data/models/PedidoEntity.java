@@ -53,7 +53,7 @@ public class PedidoEntity extends BaseEntity {
     @JoinColumn(name = "cliente_id")
     private ClienteEntity clienteEntity;
 
-    @OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<ItemPedidoEntity> itens;
 
@@ -62,27 +62,4 @@ public class PedidoEntity extends BaseEntity {
         this.dataPedido = LocalDateTime.now();
     }
 
-    public PedidoEntity(Pedido pedido) {
-        if (pedido != null) {
-            this.id = pedido.getId();
-            this.numero = pedido.getNumero();
-            this.dataPedido = pedido.getDataPedido();
-            this.valorTotal = pedido.getValorTotal();
-            this.statusPedido = pedido.getStatusPedido();
-            this.clienteEntity = pedido.getCliente() != null ? new ClienteEntity(pedido.getCliente()) : null;
-            this.itens = pedido.getItens().stream().map(ItemPedidoEntity::new).collect(Collectors.toList());
-        }
-    }
-
-    public Pedido toPedido() {
-        return new Pedido(
-                this.id,
-                this.numero,
-                this.dataPedido,
-                this.valorTotal,
-                this.statusPedido,
-                this.clienteEntity != null ? this.clienteEntity.toCliente() : null,
-                this.itens.stream().map(ItemPedidoEntity::toItemPedido).collect(Collectors.toList())
-        );
-    }
 }

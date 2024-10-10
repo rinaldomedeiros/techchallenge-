@@ -39,24 +39,11 @@ public class ItemPedidoEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
-    private PedidoEntity pedidoEntity;
+    private PedidoEntity pedido;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    private ProdutoEntity produtoEntity;
+    private ProdutoEntity produto;
 
-    public ItemPedidoEntity(ItemPedido itemPedido) {
-        this.id = itemPedido.getId();
-        this.quantidade = itemPedido.getQuantidade();
-        this.valorItem = itemPedido.getValorItem();
-        this.produtoEntity = new ProdutoEntity(itemPedido.getProduto());
-    }
 
-    public ItemPedido toItemPedido() {
-        return new ItemPedido(
-                this.id,
-                this.quantidade,
-                this.valorItem,
-                this.produtoEntity != null ? this.produtoEntity.toProduto() : null);
-    }
 }

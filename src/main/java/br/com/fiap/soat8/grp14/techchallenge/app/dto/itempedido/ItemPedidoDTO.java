@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemPedidoDTO {
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     private Integer quantidade;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -24,7 +24,7 @@ public class CriarClienteUseCase extends AbstractUseCase<ClienteEntity, Cliente>
     @Override
     public Cliente execute(ClienteEntity clienteEntity) {
         Optional<ClienteEntity> clienteExistente = repository.findByCpf(clienteEntity.getCpf());
-        if (clienteExistente.isEmpty()) {
+        if (clienteExistente.isPresent()) {
             throw new DataIntegrityException(CPF_CADASTRADO);
         }
 
