@@ -75,10 +75,15 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 
 - **Persistência de Dados:** Um *PersistentVolumeClaim* garante que os dados do banco sejam preservados.
 - **Escalabilidade:** O sistema utiliza um *Horizontal Pod Autoscaler* (HPA) ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
+- **Cloud** Por último um exemplo de como ficaria esta arquitetura em uma nuvem da AWS.
 
 ### 2.2 Diagrama de Arquitetura:
+
+***Arquitetura Local***
 ![Arquitetura Local do Kubernetes](./assets/local-arc.gif)
 
+***Arquitetura em Nuvem***
+![Arquitetura em Nuvem](./assets/cloud-arc.gif)
 
 # 📦 3. Domínios e Entidades
 
