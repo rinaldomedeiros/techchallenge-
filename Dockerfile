@@ -4,6 +4,8 @@ WORKDIR /home/app
 
 COPY . /home/app
 
+RUN apk add --no-cache postgresql-client
+
 RUN mvn clean install -P prod -Dmaven.test.skip=true
 
 EXPOSE 8080
