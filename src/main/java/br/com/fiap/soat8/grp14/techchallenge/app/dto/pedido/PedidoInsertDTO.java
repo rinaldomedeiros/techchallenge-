@@ -21,7 +21,6 @@ import java.util.List;
 
 public class PedidoInsertDTO {
 
-    @NotNull(message = "O id do cliente não pode ser nulo")
     private Long clienteId;
 
     @NotNull(message = "A lista de itens não pode ser nula")

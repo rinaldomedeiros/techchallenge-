@@ -59,7 +59,7 @@ public class CriarPedidoUseCase extends AbstractUseCase<PedidoEntity, Pedido> {
     }
 
     private int gerarNumeroPedido() {
-        Optional<PedidoEntity> ultimoPedido = repository.findTopByNumeroPedido();
+        Optional<PedidoEntity> ultimoPedido = repository.findTopByOrderByNumeroDesc();
         return ultimoPedido.map(pedido -> pedido.getNumero() + 1).orElse(1);
     }
 }
