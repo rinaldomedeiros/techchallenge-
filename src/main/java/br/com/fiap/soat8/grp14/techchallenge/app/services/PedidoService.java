@@ -1,20 +1,21 @@
 package br.com.fiap.soat8.grp14.techchallenge.app.services;
 
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
-import br.com.fiap.soat8.grp14.techchallenge.core.entities.ItemPedido;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
+import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.BuscarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.CriarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.ListarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.PedidoEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ProdutoEntity;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -22,11 +23,17 @@ public class PedidoService {
 
     private final ListarPedidoUseCase listarPedidoUseCase;
     private final CriarPedidoUseCase criarPedidoUseCase;
+    private final BuscarPedidoUseCase buscarPedidoIdUseCase;
 
     private final ModelMapper mapper;
 
     public List<PedidoDTO> listarTodos() {
         return this.listarPedidoUseCase.execute(true).stream().map(pedido -> mapper.map(pedido, PedidoDTO.class)).toList();
+    }
+
+    @Transactional
+    public PedidoDTO buscarPorNumero(Integer nrPedido) {
+        return mapper.map(buscarPedidoIdUseCase.execute(nrPedido), PedidoDTO.class);
     }
 
     @Transactional
