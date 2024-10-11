@@ -3,10 +3,8 @@ package br.com.fiap.soat8.grp14.techchallenge.data.models;
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
-import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -51,7 +49,7 @@ public class PedidoEntity extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private ClienteEntity clienteEntity;
+    private ClienteEntity cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
