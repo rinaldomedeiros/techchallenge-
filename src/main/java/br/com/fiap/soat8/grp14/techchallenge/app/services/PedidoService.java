@@ -4,6 +4,8 @@ import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.ItemPedido;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
+import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.AtualizarStatusPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.CriarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.ListarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
@@ -22,12 +24,14 @@ public class PedidoService {
 
     private final ListarPedidoUseCase listarPedidoUseCase;
     private final CriarPedidoUseCase criarPedidoUseCase;
+    private final AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
 
     private final ModelMapper mapper;
 
     public List<PedidoDTO> listarTodos() {
         return this.listarPedidoUseCase.execute(true).stream().map(pedido -> mapper.map(pedido, PedidoDTO.class)).toList();
     }
+
 
     @Transactional
     public PedidoDTO salvarPedido(PedidoInsertDTO pedidoInsertDTO) {
@@ -56,6 +60,13 @@ public class PedidoService {
 
         // Mapeia o Pedido de volta para PedidoDTO para retornar na resposta
         return mapper.map(pedidoSalvo, PedidoDTO.class);
+    }
+
+    @Transactional
+    public PedidoDTO atualizarStatus(Integer numeroPedido, StatusPedido status) {
+
+        Pedido pedidoAtualizado = atualizarStatusPedidoUseCase.executeCustom(numeroPedido, status);
+        return mapper.map(pedidoAtualizado, PedidoDTO.class);
     }
 }
 

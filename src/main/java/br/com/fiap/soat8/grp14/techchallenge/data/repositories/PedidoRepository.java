@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface PedidoRepository extends BaseRepository<PedidoEntity> {
     Optional<PedidoEntity> findTopByOrderByNumeroDesc();
 
+    Optional<PedidoEntity> findByNumero(int numeroPedido);
+
     List<PedidoEntity> findByCliente_Id(long idCliente);
 
 }

@@ -4,6 +4,7 @@ import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.services.PedidoService;
 import br.com.fiap.soat8.grp14.techchallenge.app.services.ProdutoService;
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -38,5 +39,15 @@ public class PedidoController {
         PedidoDTO pedidoSalvo = pedidoService.salvarPedido(pedidoInsertDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoSalvo);
     }
+
+    @PutMapping("/status")
+    @Operation(summary = "Este endpoint atualiza o status do pedido pelo número.")
+    public ResponseEntity<PedidoDTO> atualizaStatusPedido(
+            @RequestParam Integer numeroPedido,
+            @RequestParam StatusPedido status) {
+        PedidoDTO pedidoAtualizado = pedidoService.atualizarStatus(numeroPedido, status);
+        return ResponseEntity.ok(pedidoAtualizado);
+    }
+
 
 }
