@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 @SuperBuilder
 public class StandardError implements Serializable {
 
-    private HttpStatus status;
+	private static final long serialVersionUID = -69188478918962292L;
+	
+	private HttpStatus status;
     private String message;
     private LocalDateTime timestamp;
 
