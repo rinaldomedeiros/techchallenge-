@@ -1,23 +1,22 @@
 package br.com.fiap.soat8.grp14.techchallenge.app.services;
 
-import java.util.List;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoAtualizarStatusDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.BuscarPedidoUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.AtualizarStatusPedidoUseCase;
+import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.BuscarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.CriarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.ListarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.PedidoEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ProdutoEntity;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -52,14 +51,11 @@ public class PedidoService {
 
         pedidoEntity.getItens().stream().forEach(item -> item.setProduto(new ProdutoEntity()));
 
-        pedidoEntity.getItens().stream().forEach(item -> item.setProduto(new ProdutoEntity()));
-
         pedidoEntity.getItens().stream().forEach(item -> {
             pedidoInsertDTO.getItens().stream()
                     .filter(produtoDTO -> produtoDTO.getProdutoId() != null)
                     .forEach(produtoDTO -> item.getProduto().setId(produtoDTO.getProdutoId()));
         });
-
 
         // Executa o caso de uso para salvar o pedido
         Pedido pedidoSalvo = this.criarPedidoUseCase.execute(pedidoEntity);
@@ -69,9 +65,8 @@ public class PedidoService {
     }
 
     @Transactional
-    public PedidoDTO atualizarStatus(Integer numeroPedido, StatusPedido status) {
-
-        Pedido pedidoAtualizado = atualizarStatusPedidoUseCase.executeCustom(numeroPedido, status);
+    public PedidoDTO atualizarStatus(PedidoAtualizarStatusDTO pedidoAtualizarStatusDTO) {
+        Pedido pedidoAtualizado = atualizarStatusPedidoUseCase.execute(pedidoAtualizarStatusDTO);
         return mapper.map(pedidoAtualizado, PedidoDTO.class);
     }
 }

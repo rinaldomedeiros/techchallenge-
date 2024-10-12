@@ -14,7 +14,7 @@ public interface PedidoRepository extends BaseRepository<PedidoEntity> {
     Optional<PedidoEntity> findByNumero(int numeroPedido);
 
     List<PedidoEntity> findByCliente_Id(long idCliente);
-    
-    PedidoEntity findByNumero(Integer nrPedido);
+
+    Optional<PedidoEntity> findByNumero(Integer nrPedido);
 
 }

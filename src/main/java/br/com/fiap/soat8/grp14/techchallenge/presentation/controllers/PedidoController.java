@@ -1,10 +1,9 @@
 package br.com.fiap.soat8.grp14.techchallenge.presentation.controllers;
 
+import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoAtualizarStatusDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.services.PedidoService;
-import br.com.fiap.soat8.grp14.techchallenge.app.services.ProdutoService;
-import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -42,10 +41,8 @@ public class PedidoController {
 
     @PutMapping("/status")
     @Operation(summary = "Este endpoint atualiza o status do pedido pelo número.")
-    public ResponseEntity<PedidoDTO> atualizaStatusPedido(
-            @RequestParam Integer numeroPedido,
-            @RequestParam StatusPedido status) {
-        PedidoDTO pedidoAtualizado = pedidoService.atualizarStatus(numeroPedido, status);
+    public ResponseEntity<PedidoDTO> atualizaStatusPedido(@Valid @RequestBody PedidoAtualizarStatusDTO pedidoAtualizarStatusDTO) {
+        PedidoDTO pedidoAtualizado = pedidoService.atualizarStatus(pedidoAtualizarStatusDTO);
         return ResponseEntity.ok(pedidoAtualizado);
     }
 

@@ -1,15 +1,13 @@
 package br.com.fiap.soat8.grp14.techchallenge.infra.config.beans;
 
-import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.AtualizarStatusPedidoUseCase;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.BuscarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.CriarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.ListarPedidoUseCase;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.ItemPedidoRepository;
 import br.com.fiap.soat8.grp14.techchallenge.data.repositories.PedidoRepository;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PedidoUseCaseBeans {
@@ -25,8 +23,8 @@ public class PedidoUseCaseBeans {
     }
 
     @Bean
-    public AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase(PedidoRepository pedidoRepository, ModelMapper modelMapper) {
-        return new AtualizarStatusPedidoUseCase(pedidoRepository, modelMapper);
+    public AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase(PedidoRepository pedidoRepository) {
+        return new AtualizarStatusPedidoUseCase(pedidoRepository);
     }
 
     @Bean
