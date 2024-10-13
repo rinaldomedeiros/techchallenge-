@@ -73,9 +73,12 @@ Após isso uma janela irá abrir com o status do teste em tempo real. É possív
 ## Visão Geral: ##
 O sistema é construído utilizando Java com Spring Boot, e a imagem Docker utilizada pelo `techchalenge-backend` é gerada automaticamente usando o `Dockerfile` e enviada ao *DockerHub*. No momento do apply dos manifestos, a imagem é baixada e o banco de dados é configurado automaticamente realizando também um *pull* de sua respectiva imagem.
 
-- **Persistência de Dados:** Um *PersistentVolumeClaim* garante que os dados do banco sejam preservados.
-- **Escalabilidade:** O sistema utiliza um *Horizontal Pod Autoscaler* (HPA) ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
-- **Cloud** Por último um exemplo de como ficaria esta arquitetura em uma nuvem da AWS.
+- **Resiliência:** Os Pods e configurações adicionais, como *Probes*, *Resources* e quantidades de *Replicas* são definidos no arquivo de `deployment.yaml`, seguindo as melhores práticas recomendadas para Kubernetes.
+- **Configuração** Todos os parâmetros de configurações necessários para o deploy da aplicação e do banco de dados são especificados no `configmap.yaml`.
+- **Segurança** Informações sensíveis foram armazenados no `secrets.yaml`, com os dados devidamente encriptados utilizando o tipo *opaque*.
+- **Persistência de Dados:** O uso de um *PersistentVolumeClaim* (`pvc.yaml`) garante a persistência dos dados do banco de dados, preservando-os mesmo em caso de reinicialização dos Pods.
+- **Escalabilidade:** O sistema utiliza um *Horizontal Pod Autoscaler* (`hpa.yaml`) para ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
+- **Nuvem** Por último um exemplo de como ficaria esta arquitetura em uma nuvem da AWS. Sendo que a mesma arquitetura local apresentada, pode ser facilmente adaptada para rodar em providores de nuvem como a AWS por exemplo.
 
 ### 2.2 Diagrama de Arquitetura:
 

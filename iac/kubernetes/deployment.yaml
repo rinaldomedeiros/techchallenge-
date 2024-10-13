@@ -63,8 +63,8 @@ spec:
               - /bin/sh
               - -c
               - "pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}"
-          initialDelaySeconds: 75
-          periodSeconds: 10
+          initialDelaySeconds: 70
+          periodSeconds: 5
           failureThreshold: 5
 
 ---
