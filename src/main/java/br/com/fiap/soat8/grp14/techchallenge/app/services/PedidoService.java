@@ -4,10 +4,7 @@ import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoAtualizarStatu
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.AtualizarStatusPedidoUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.BuscarPedidoUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.CriarPedidoUseCase;
-import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.ListarPedidoUseCase;
+import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.*;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.PedidoEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ProdutoEntity;
@@ -26,6 +23,7 @@ public class PedidoService {
     private final CriarPedidoUseCase criarPedidoUseCase;
     private final BuscarPedidoUseCase buscarPedidoIdUseCase;
     private final AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
+    private final ListarPedidoOrdenadoUseCase listarPedidoOrdenadoUseCase;
 
     private final ModelMapper mapper;
 
@@ -68,6 +66,11 @@ public class PedidoService {
     public PedidoDTO atualizarStatus(PedidoAtualizarStatusDTO pedidoAtualizarStatusDTO) {
         Pedido pedidoAtualizado = atualizarStatusPedidoUseCase.execute(pedidoAtualizarStatusDTO);
         return mapper.map(pedidoAtualizado, PedidoDTO.class);
+    }
+
+
+    public List<PedidoDTO> listarPedidosOrdenado() {
+        return this.listarPedidoOrdenadoUseCase.execute(true).stream().map(pedido -> mapper.map(pedido, PedidoDTO.class)).toList();
     }
 }
 

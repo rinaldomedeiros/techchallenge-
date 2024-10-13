@@ -33,7 +33,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    @Operation(summary = "Este endpoint é responsável por criar o pedido (Fake checkout).")
+    @Operation(summary = "Este endpoint é responsável por criar o pedido.")
     public ResponseEntity<PedidoDTO> salvarPedidos(@Validated @RequestBody PedidoInsertDTO pedidoInsertDTO) {
         PedidoDTO pedidoSalvo = pedidoService.salvarPedido(pedidoInsertDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoSalvo);
@@ -44,6 +44,12 @@ public class PedidoController {
     public ResponseEntity<PedidoDTO> atualizaStatusPedido(@Valid @RequestBody PedidoAtualizarStatusDTO pedidoAtualizarStatusDTO) {
         PedidoDTO pedidoAtualizado = pedidoService.atualizarStatus(pedidoAtualizarStatusDTO);
         return ResponseEntity.ok(pedidoAtualizado);
+    }
+
+    @GetMapping("/status")
+    @Operation(summary = "Este endpoint lista pedidos,de forma ordenda do mais antigo para o mais novo ,por status.")
+    public ResponseEntity<List<PedidoDTO>> listaPedidoOrdenado() {
+        return ResponseEntity.ok(this.pedidoService.listarPedidosOrdenado());
     }
 
 
