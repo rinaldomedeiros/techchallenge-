@@ -21,7 +21,7 @@ public class PedidoService {
 
     private final ListarPedidoUseCase listarPedidoUseCase;
     private final CriarPedidoUseCase criarPedidoUseCase;
-    private final BuscarPedidoUseCase buscarPedidoIdUseCase;
+    private final BuscarPedidoUseCase buscarPedidoUseCase;
     private final AtualizarStatusPedidoUseCase atualizarStatusPedidoUseCase;
     private final ListarPedidoOrdenadoUseCase listarPedidoOrdenadoUseCase;
 
@@ -32,8 +32,8 @@ public class PedidoService {
     }
 
     @Transactional
-    public PedidoDTO buscarPorNumero(Integer nrPedido) {
-        return mapper.map(buscarPedidoIdUseCase.execute(nrPedido), PedidoDTO.class);
+    public PedidoDTO buscarPedido(Long idPedido) {
+        return mapper.map(buscarPedidoUseCase.execute(idPedido), PedidoDTO.class);
     }
 
     @Transactional
@@ -45,7 +45,6 @@ public class PedidoService {
             clienteEntity.setId(pedidoInsertDTO.getClienteId());
             pedidoEntity.setCliente(clienteEntity);
         }
-
 
         pedidoEntity.getItens().stream().forEach(item -> item.setProduto(new ProdutoEntity()));
 
@@ -68,9 +67,7 @@ public class PedidoService {
         return mapper.map(pedidoAtualizado, PedidoDTO.class);
     }
 
-
     public List<PedidoDTO> listarPedidosOrdenado() {
         return this.listarPedidoOrdenadoUseCase.execute(true).stream().map(pedido -> mapper.map(pedido, PedidoDTO.class)).toList();
     }
 }
-
