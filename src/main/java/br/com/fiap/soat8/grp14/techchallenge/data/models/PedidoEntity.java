@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPagamento;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -54,6 +55,9 @@ public class PedidoEntity extends BaseEntity {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<ItemPedidoEntity> itens;
+
+    @Column(name = "status_pagamento")
+    private StatusPagamento statusPagamento;
 
     @PrePersist
     protected void onCreate() {
