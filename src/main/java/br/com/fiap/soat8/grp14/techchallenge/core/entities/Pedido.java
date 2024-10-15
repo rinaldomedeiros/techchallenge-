@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPagamento;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,5 +26,6 @@ public class Pedido {
     private StatusPedido statusPedido;
     private Cliente cliente;
     private List<ItemPedido> itens = new ArrayList<>();
+    private StatusPagamento statusPagamento;
 
 }

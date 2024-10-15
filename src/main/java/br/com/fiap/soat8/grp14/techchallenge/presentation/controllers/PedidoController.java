@@ -3,6 +3,7 @@ package br.com.fiap.soat8.grp14.techchallenge.presentation.controllers;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoAtualizarStatusDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
+import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoStatusPagamentoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.services.PedidoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,6 +58,13 @@ public class PedidoController {
     public ResponseEntity<List<PedidoDTO>> listaPedidoOrdenado() {
         return ResponseEntity.ok(this.pedidoService.listarPedidosOrdenado());
     }
+
+    @PutMapping("/status-pagamento")
+    @Operation(summary = "Este endpoint atualiza o status do pagamento do pedido.")
+    public ResponseEntity<PedidoDTO> atualizaStatusPagamentoPedido(@Valid @RequestBody PedidoStatusPagamentoDTO pedidoStatusPagamentoDTO) {
+        return ResponseEntity.ok(this.pedidoService.atualizarStatusPagamento(pedidoStatusPagamentoDTO));
+    }
+
 
 
 }

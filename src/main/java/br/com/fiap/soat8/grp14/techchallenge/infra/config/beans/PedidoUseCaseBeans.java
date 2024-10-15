@@ -33,4 +33,10 @@ public class PedidoUseCaseBeans {
     public ListarPedidoOrdenadoUseCase listarPedidoOrdenadoUseCase(PedidoRepository pedidoRepository) {
         return new ListarPedidoOrdenadoUseCase(pedidoRepository);
     }
+
+    @Bean
+    public AtualizarStatusPagamentoUseCase atualizarStatusPagamentoUseCase(PedidoRepository pedidoRepository) {
+        return new AtualizarStatusPagamentoUseCase(pedidoRepository);
+    }
+
 }
