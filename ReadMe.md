@@ -165,9 +165,7 @@ Este documento descreve os endpoints disponíveis na API, suas funcionalidades e
 
 ⚠️ **Avisos**
 - Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo **"Como executar o Projeto Localmente?"**.
-- 
 - Para metodos de PUT e POST não é necessário incluir o *id*.
-
 
 **🌐 Swagger**
 Você pode acessar a documentação interativa da API via Swagger através do passo **"Exponha o Serviço Backend"**.
