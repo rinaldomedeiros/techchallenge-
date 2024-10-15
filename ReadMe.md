@@ -141,6 +141,7 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - Processar novos pedidos.
 - Atualizar o status do pedido.
 - Calcular o valor total do pedido com base nos itens incluídos.
+- Buscar pedidos que não foram finalizados ordenados por status e do mais antigo para o mais novo.
 
 ## 3.4 Item
 
@@ -163,7 +164,7 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 Este documento descreve os endpoints disponíveis na API, suas funcionalidades e como utilizá-los.
 
 ⚠️ **Avisos**
-- Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo **1.3 "Como executar o Projeto Localmente?"**.
+- Antes de realizar as chamadas de API, execute a infraestrutura local conforme passo **"Como executar o Projeto Localmente?"**.
 - Para metodos de PUT e POST não é necessário incluir o *id*.
 
 
@@ -394,6 +395,43 @@ Você pode acessar a documentação interativa da API via Swagger pelo seguinte 
 - **Listar Pedidos**
   - **Descrição:** Retorna uma lista de todos os pedidos realizados.
   - **Endpoint:** `GET /api/pedidos`
+  - **Resposta de Sucesso:** `200 OK`
+
+    ```json
+    [
+      {
+        "id": "number",
+        "numero": "number",
+        "dataPedido": "string",
+        "valorTotal": "number",
+        "statusPedido": "string",
+        "cliente": {
+          "id": "number",
+          "email": "string",
+          "nome": "string",
+          "cpf": "string"
+        },
+        "itens": [
+          {
+            "id": "number",
+            "quantidade": "number",
+            "valorItem": "number",
+            "produto": {
+              "id": "number",
+              "nome": "string",
+              "descricao": "string",
+              "valor": "number",
+              "categoriaProduto": "string"
+            }
+          }
+        ]
+      }
+    ]
+    ```
+
+- **Listar Pedidos Ordenados**
+  - **Descrição:** Retorna uma lista de todos os pedidos não finalizados ordenados por status e do mais antigo para o mais novo.
+  - **Endpoint:** `GET /api/status`
   - **Resposta de Sucesso:** `200 OK`
 
     ```json
