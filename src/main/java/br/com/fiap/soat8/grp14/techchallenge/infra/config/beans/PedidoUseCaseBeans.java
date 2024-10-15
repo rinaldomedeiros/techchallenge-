@@ -25,7 +25,7 @@ public class PedidoUseCaseBeans {
     }
 
     @Bean
-    public BuscarPedidoUseCase buscarPedidoIdUseCase(PedidoRepository pedidoRepository) {
+    public BuscarPedidoUseCase buscarPedidoUseCase(PedidoRepository pedidoRepository) {
         return new BuscarPedidoUseCase(pedidoRepository);
     }
 

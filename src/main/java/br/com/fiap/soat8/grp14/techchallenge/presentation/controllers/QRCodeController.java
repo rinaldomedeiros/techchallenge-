@@ -37,18 +37,18 @@ public class QRCodeController {
         this.pedidoService = pedidoService;
     }
 
-    @PostMapping("/{nrPedido}/")
+    @PostMapping("/{idPedido}/")
     @Operation(summary = "Este endpoint é responsável por gerar o QR-Code de pagamento.")
     @ApiResponses(value = {
     	    @ApiResponse(responseCode = "200", description = "QR Code gerado com sucesso", content = @Content(schema = @Schema(implementation = QRCodeDTO.class))),
     	    @ApiResponse(responseCode = "500", description = "Erro ao gerar o QR Code", content = @Content(schema = @Schema(implementation = StandardError.class)))
     })
-    public ResponseEntity<?> gerarQrCode(@PathVariable Integer nrPedido) {
+    public ResponseEntity<?> gerarQrCode(@PathVariable Long idPedido) {
         try {
-            PedidoDTO pedido = pedidoService.buscarPorNumero(nrPedido);
+            PedidoDTO pedido = pedidoService.buscarPedido(idPedido);
 
             QRCodeDTO qrCodeDTO = qrCodeService.gerarQrCode(
-                pedido.getId().toString(),
+                idPedido.toString(),
                 pedido.getItens(),
                 pedido.getValorTotal()); 
 

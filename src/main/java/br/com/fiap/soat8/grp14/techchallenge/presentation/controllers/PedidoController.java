@@ -32,6 +32,12 @@ public class PedidoController {
         return ResponseEntity.ok(this.pedidoService.listarTodos());
     }
 
+    @Operation(summary = "Este endpoint é responsável buscar pedido por ID.")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PedidoDTO> getPedidoPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(pedidoService.buscarPedido(id));
+    }
+
     @PostMapping
     @Operation(summary = "Este endpoint é responsável por criar o pedido.")
     public ResponseEntity<PedidoDTO> salvarPedidos(@Validated @RequestBody PedidoInsertDTO pedidoInsertDTO) {
@@ -47,7 +53,7 @@ public class PedidoController {
     }
 
     @GetMapping("/status")
-    @Operation(summary = "Este endpoint lista pedidos,de forma ordenda do mais antigo para o mais novo ,por status.")
+    @Operation(summary = "Este endpoint lista pedidos de forma ordenda do mais antigo para o mais novo por status.")
     public ResponseEntity<List<PedidoDTO>> listaPedidoOrdenado() {
         return ResponseEntity.ok(this.pedidoService.listarPedidosOrdenado());
     }

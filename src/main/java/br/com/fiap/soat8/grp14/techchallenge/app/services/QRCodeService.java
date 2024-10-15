@@ -21,7 +21,7 @@ public class QRCodeService {
     @Autowired
     private MercadoPagoConfig mercadoPagoConfig;
 
-    public QRCodeDTO gerarQrCode(String nrPedido, List<ItemPedidoDTO> itens, double valorTotal) throws Exception {
+    public QRCodeDTO gerarQrCode(String idPedido, List<ItemPedidoDTO> itens, double valorTotal) throws Exception {
         String apiUrl = mercadoPagoConfig.getApiUrl();
         String accessToken = mercadoPagoConfig.getAccessToken();
         String idUsuario = mercadoPagoConfig.getIdUsuario();
@@ -44,9 +44,9 @@ public class QRCodeService {
         conn.setDoOutput(true);
 
         String jsonPayload = new JSONObject()
-            .put("external_reference", nrPedido)
+            .put("external_reference", idPedido)
             .put("title", titulo)
-            .put("description", "Pedido " + nrPedido)
+            .put("description", "Pedido " + idPedido)
             .put("notification_url", "https://www.yourserver.com/notifications") //TODO
             .put("total_amount", valorTotal)
             .put("items", getJsonItens(itens))
