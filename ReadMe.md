@@ -15,7 +15,7 @@ Para rodar o sistema localmente, você precisará de:
 Abra o terminal, navegue até a pasta `iac` dentro do repositório, e execute os comandos:
 
 ```bash
-minikube-start
+minikube start
 ```
 
 ```bash
