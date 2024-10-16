@@ -174,7 +174,7 @@ Este tópico apresenta o Swagger, que contêm a documentação da API e o link d
   - O status do pagamento pode ser consultado através do endpoint GET /api/pedidos/status-pagamento/{id}
 
 **🌐 Swagger**
-Você pode acessar a documentação interativa da API via Swagger através do passo **"Exponha o Serviço Backend"**.
+- Você pode acessar a documentação interativa da API via Swagger através do passo **"Exponha o Serviço Backend"**.
 
 **Video da Arquitetura**
-Link do video : https://www.youtube.com/watch?v=c3hH8KvOHtg
+- Link do video : https://www.youtube.com/watch?v=c3hH8KvOHtg
