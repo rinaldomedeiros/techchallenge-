@@ -178,5 +178,3 @@ Você pode acessar a documentação interativa da API via Swagger através do pa
 
 **Video da Arquitetura**
 Link do video : https://www.youtube.com/watch?v=c3hH8KvOHtg
-
-    ```
