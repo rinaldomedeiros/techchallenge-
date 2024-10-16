@@ -1,8 +1,12 @@
 package br.com.fiap.soat8.grp14.techchallenge.app.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +14,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.QRCode.QRCodeDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.itempedido.ItemPedidoDTO;
@@ -47,7 +57,7 @@ public class QRCodeService {
             .put("external_reference", idPedido)
             .put("title", titulo)
             .put("description", "Pedido " + idPedido)
-            .put("notification_url", "https://www.yourserver.com/notifications") //TODO
+            .put("notification_url", "https://829b-2804-214-3c-11d6-cfcc-3a99-fbe3-2ed6.ngrok-free.app")
             .put("total_amount", valorTotal)
             .put("items", getJsonItens(itens))
             .put("cash_out", new JSONObject().put("amount", 0))
@@ -68,7 +78,6 @@ public class QRCodeService {
 		return getQrCode(jsonResponse);
 	}
 
-    
     private JSONArray getJsonItens(List<ItemPedidoDTO> itens) {
     	JSONArray jsonItems = new JSONArray();
     	for (ItemPedidoDTO item : itens) {
@@ -95,4 +104,19 @@ public class QRCodeService {
 		return new QRCodeDTO(qrData, orderId);
 	}
 
+    public void salvarQrCodeComoArquivo(String qrData, String filePath) throws WriterException, IOException {
+        File file = new File(filePath);
+        File parentDir = file.getParentFile();
+
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();  // Cria o diretório (ou diretórios) se não existirem
+        }
+    	
+    	QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrData, BarcodeFormat.QR_CODE, 300, 300);
+
+        Path path = FileSystems.getDefault().getPath(filePath);
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);  // Salva o arquivo PNG
+    }
+    
 }

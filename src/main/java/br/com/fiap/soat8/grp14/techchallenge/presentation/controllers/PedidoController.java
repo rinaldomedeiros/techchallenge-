@@ -64,7 +64,11 @@ public class PedidoController {
     public ResponseEntity<PedidoDTO> atualizaStatusPagamentoPedido(@Valid @RequestBody PedidoStatusPagamentoDTO pedidoStatusPagamentoDTO) {
         return ResponseEntity.ok(this.pedidoService.atualizarStatusPagamento(pedidoStatusPagamentoDTO));
     }
-
-
+    
+    @GetMapping("/status-pagamento/{id}")
+    @Operation(summary = "Este endpoint consulta o status do pagamento do pedido.")
+    public ResponseEntity<PedidoStatusPagamentoDTO> consultarStatus(@PathVariable Long id) {
+        return ResponseEntity.ok(pedidoService.consultarStatusPagamento(id));
+    }
 
 }

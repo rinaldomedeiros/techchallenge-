@@ -1,20 +1,18 @@
 package br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido;
 
-import br.com.fiap.soat8.grp14.techchallenge.app.dto.itempedido.ItemPedidoDTO;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.cliente.ClienteDTO;
+import br.com.fiap.soat8.grp14.techchallenge.app.dto.itempedido.ItemPedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPedido;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
