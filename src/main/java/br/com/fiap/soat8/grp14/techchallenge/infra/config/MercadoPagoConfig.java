@@ -13,6 +13,7 @@ import lombok.Setter;
 public class MercadoPagoConfig {
 
     private String apiUrl;
+    private String apiUrlStatus;
     private String accessToken;
     private String idUsuario;
     private String idPosExterno;

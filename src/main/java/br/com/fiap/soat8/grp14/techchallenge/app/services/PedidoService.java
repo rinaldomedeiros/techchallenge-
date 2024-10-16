@@ -5,21 +5,33 @@ import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoInsertDTO;
 import br.com.fiap.soat8.grp14.techchallenge.app.dto.pedido.PedidoStatusPagamentoDTO;
 import br.com.fiap.soat8.grp14.techchallenge.core.entities.Pedido;
+import br.com.fiap.soat8.grp14.techchallenge.core.entities.enums.StatusPagamento;
 import br.com.fiap.soat8.grp14.techchallenge.core.usecases.pedido.*;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ClienteEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.PedidoEntity;
 import br.com.fiap.soat8.grp14.techchallenge.data.models.ProdutoEntity;
+import br.com.fiap.soat8.grp14.techchallenge.infra.config.MercadoPagoConfig;
 import lombok.AllArgsConstructor;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class PedidoService {
-
+	
     private final ListarPedidoUseCase listarPedidoUseCase;
     private final CriarPedidoUseCase criarPedidoUseCase;
     private final BuscarPedidoUseCase buscarPedidoUseCase;
@@ -28,6 +40,9 @@ public class PedidoService {
     private final AtualizarStatusPagamentoUseCase atualizarStatusPagamentoUseCase;
 
     private final ModelMapper mapper;
+    
+    @Autowired
+    private MercadoPagoConfig mercadoPagoConfig;
 
     public List<PedidoDTO> listarTodos() {
         return this.listarPedidoUseCase.execute(true).stream().map(pedido -> mapper.map(pedido, PedidoDTO.class)).toList();
@@ -76,4 +91,40 @@ public class PedidoService {
     public PedidoDTO atualizarStatusPagamento(PedidoStatusPagamentoDTO pedidoStatusPagamentoDTO) {
         return mapper.map(this.atualizarStatusPagamentoUseCase.execute(pedidoStatusPagamentoDTO), PedidoDTO.class);
     }
+    
+    public PedidoStatusPagamentoDTO consultarStatusPagamento(Long id) {
+    	PedidoStatusPagamentoDTO statusPagamento = new PedidoStatusPagamentoDTO();
+    	String accessToken = mercadoPagoConfig.getAccessToken();
+    	
+        String url = mercadoPagoConfig.getApiUrlStatus() + id;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(accessToken);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            String jsonResponse = responseEntity.getBody();
+            
+            JSONObject responseObject = new JSONObject(jsonResponse);
+
+            JSONArray results = responseObject.getJSONArray("results");
+
+            if (results.length() > 0) {
+                JSONObject payment = results.getJSONObject(0);
+                if(!payment.getString("status").isEmpty()) {
+                	statusPagamento.setPedidoId(id);
+                	statusPagamento.setStatusPagamento(StatusPagamento.APROVADO);
+                } 
+            } else {
+            	statusPagamento.setPedidoId(id);
+            	statusPagamento.setStatusPagamento(StatusPagamento.NAO_APROVADO);
+            }
+        }
+        return statusPagamento;
+    }
+    
 }
