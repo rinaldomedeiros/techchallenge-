@@ -40,7 +40,7 @@ spec:
       
       containers:
       - name: backend
-        image: sickbanger/techchallenge-backend:v1.7
+        image: samuraiel/techchallenge-backend:v1.1
         ports:
         - containerPort: 8080
         command: ["java", "-jar"]
