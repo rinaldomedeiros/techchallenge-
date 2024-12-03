@@ -1,0 +1,29 @@
+name: Deploy to Kind Cluster
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Kind
+        run: |
+          # Configure Kind Cluster
+
+          kind create cluster --name deploy-k8s
+          kubectl cluster-info --context kind-deploy-k8s
+
+      - name: Configure kubectl
+        run: |
+          CURRENT_CONTEXT=$(kubectl config current-context)
+          echo "Current Kubernetes context: $CURRENT_CONTEXT"
+          kubectl config use-context "$CURRENT_CONTEXT"
+
+      - name: Deploy to Kind Cluster
+        run: |
+          kubectl apply -f kubernetes/deployment.yaml -f kubernetes/service.yaml
