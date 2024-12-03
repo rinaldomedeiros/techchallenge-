@@ -1,4 +1,4 @@
-name: Deploy to Kind Cluster
+name: Deploy to Cluster
 
 on:
   workflow_dispatch:
