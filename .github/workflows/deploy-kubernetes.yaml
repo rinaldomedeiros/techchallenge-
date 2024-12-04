@@ -14,7 +14,6 @@ jobs:
       - name: Set up Kind
         run: |
           # Configure Kind Cluster
-
           kind create cluster --name deploy-k8s
           kubectl cluster-info --context kind-deploy-k8s
 
@@ -26,4 +25,4 @@ jobs:
 
       - name: Deploy to Kind Cluster
         run: |
-          kubectl apply -f kubernetes/deployment.yaml -f kubernetes/service.yaml
+          kubectl apply -f iac/kubernetes
