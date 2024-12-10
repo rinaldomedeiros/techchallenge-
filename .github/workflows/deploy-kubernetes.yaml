@@ -11,6 +11,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/aws-cli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -20,12 +32,16 @@ jobs:
 
       - name: Update kubeconfig for AWS EKS
         run: |
-          aws eks update-kubeconfig --region us-east-1 --name your-cluster-name
+          aws eks update-kubeconfig --region us-east-1 --name techchalenge-eks-cluster
 
       - name: Verify kubectl configuration
-        run: kubectl config view
+        run: |
+          kubectl config view
+          kubectl get nodes
 
       - name: Deploy to EKS Cluster
         run: |
           kubectl apply -f iac/kubernetes
+          kubectl rollout status deployment/techchallenge-backend
+          kubectl rollout status deployment/techchallenge-psql
 
