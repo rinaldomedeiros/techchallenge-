@@ -52,8 +52,8 @@ spec:
               key: DB_PASSWORD
         resources:
           limits:
-            cpu: 500m
-            memory: 1Gi
+            cpu: 300m
+            memory: 512Gi
           requests:
             cpu: 300m
             memory: 512Mi
