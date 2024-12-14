@@ -1,41 +1,76 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: techchallenge-psql
+  name: techchallenge-backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: postgres
+      app: backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   template:
     metadata:
       labels:
-        app: postgres
+        app: backend
     spec:
-      containers:
-      - name: postgres
+      initContainers:
+      - name: init-wait-for-db
         image: postgres:16.2
+        command: ['sh', '-c', 'until pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}; do echo waiting for postgres; sleep 2; done;']
         env:
-        - name: POSTGRES_USER
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DB_PORT
+        - name: DB_USER
           valueFrom:
             secretKeyRef:
               name: db-secret
-              key: POSTGRES_USER
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: POSTGRES_PASSWORD
-        - name: POSTGRES_DB
-          value: "techchallenge"
+              key: DB_USER
+      
+      containers:
+      - name: backend
+        image: techchallenge:latest
         ports:
-        - containerPort: 5432
-        volumeMounts:
-        - name: dbdata
-          mountPath: /var/lib/postgresql/data
-        - name: init-script
-          mountPath: /docker-entrypoint-initdb.d/init_database.sql
-          subPath: init_database.sql
+        - containerPort: 8080
+        command: ["java", "-jar"]
+        args: ["/home/app/target/techchallenge-1.0.0-SNAPSHOT.jar", "--spring.profiles.active=prod"]
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DB_PORT
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PASSWORD
         resources:
           limits:
             cpu: 500m
@@ -43,22 +78,3 @@ spec:
           requests:
             cpu: 300m
             memory: 512Mi
-        livenessProbe:
-          exec:
-            command:
-              - pg_isready
-              - -h
-              - localhost
-              - -p
-              - "5432"
-              - -U
-              - postgres
-          initialDelaySeconds: 30
-          periodSeconds: 5
-      volumes:
-      - name: dbdata
-        persistentVolumeClaim:
-          claimName: postgres-pvc
-      - name: init-script
-        configMap:
-          name: backend-config
