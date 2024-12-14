@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: backend-config
 data:
-  DB_HOST: "techchallenge-psql"
+  DB_HOST: "<RDS-ENDPOINT"
   DB_PORT: "5432"
   DB_NAME: "techchallenge"
   init_database.sql: |
