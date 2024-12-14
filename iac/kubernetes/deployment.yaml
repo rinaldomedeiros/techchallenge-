@@ -17,27 +17,6 @@ spec:
       labels:
         app: backend
     spec:
-      initContainers:
-      - name: init-wait-for-db
-        image: postgres:16.2
-        command: ['sh', '-c', 'until pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}; do echo waiting for postgres; sleep 2; done;']
-        env:
-        - name: DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: backend-config
-              key: DB_HOST
-        - name: DB_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: backend-config
-              key: DB_PORT
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_USER
-      
       containers:
       - name: backend
         image: techchallenge:latest
@@ -78,3 +57,12 @@ spec:
           requests:
             cpu: 300m
             memory: 512Mi
+        startupProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -c
+              - "pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}"
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          failureThreshold: 10
