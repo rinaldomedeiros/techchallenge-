@@ -92,9 +92,6 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 ***Arquitetura Local***
 ![Arquitetura Local do Kubernetes](./assets/local-arc.gif)
 
-***Arquitetura em Nuvem***
-![Arquitetura em Nuvem](./assets/cloud-arc.gif)
-
 # 📦 3. Domínios e Entidades
 
 ## 3.1 Cliente ##
