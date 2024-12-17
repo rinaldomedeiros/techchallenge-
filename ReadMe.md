@@ -87,11 +87,6 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - **Serviço** Utilizamos o `service.yaml`para expor o endpoint da nossa aplicação.
 - **Nuvem** Por último um exemplo de como ficaria esta arquitetura em uma nuvem da AWS. Sendo que a mesma arquitetura local apresentada, pode ser facilmente adaptada para rodar em providores de nuvem como a AWS por exemplo.
 
-### 2.2 Diagrama de Arquitetura:
-
-***Arquitetura Local***
-![Arquitetura Local do Kubernetes](./assets/local-arc.gif)
-
 # 📦 3. Domínios e Entidades
 
 ## 3.1 Cliente ##
