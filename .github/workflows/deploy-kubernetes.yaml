@@ -41,5 +41,4 @@ jobs:
         run: |
           kubectl apply -f iac/kubernetes
           kubectl rollout status deployment/techchallenge-backend
-          kubectl rollout status deployment/techchallenge-psql
 
