@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: sickbanger/techchallenge:latest
+        image: techchallenge:latest
         ports:
         - containerPort: 8080
         command: ["java", "-jar"]
@@ -52,17 +52,8 @@ spec:
               key: DB_PASSWORD
         resources:
           limits:
-            cpu: 300m
-            memory: 512Gi
+            cpu: "500m"
+            memory: "1Gi"
           requests:
-            cpu: 300m
-            memory: 512Mi
-        startupProbe:
-          exec:
-            command:
-              - /bin/sh
-              - -c
-              - "pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}"
-          initialDelaySeconds: 20
-          periodSeconds: 10
-          failureThreshold: 10
+            cpu: "300m"
+            memory: "512Mi"
