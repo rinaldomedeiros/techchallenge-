@@ -37,7 +37,7 @@ spring:
             on-profile: dev
 
     datasource:
-        url: jdbc:postgresql://localhost:5433/techchallenge
+        url: jdbc:postgresql://techchallenge-rds.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
         username: techchallenge_usr
         password: P0o9i8u7
 
