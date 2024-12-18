@@ -8,7 +8,7 @@ spec:
       containers:
       - name: init-database
         image: postgres:16.2
-        command: ["sh", "-c", "psql -h ${DB_HOST} -U ${DB_USER} -d ${DB_NAME} -f /scripts/init_database.sql"]
+        command: ["sh", "-c", "psql -h $DB_HOST -U $DB_USER -d $DB_NAME -f /scripts/init_database.sql"]
         env:
         - name: DB_HOST
           valueFrom:
@@ -37,5 +37,8 @@ spec:
       - name: init-scripts
         configMap:
           name: backend-config
+          items:
+          - key: init_database.sql
+            path: init_database.sql
       restartPolicy: OnFailure
   backoffLimit: 3

@@ -37,14 +37,24 @@ spring:
             on-profile: dev
 
     datasource:
-        url: jdbc:postgresql://terraform-20241218201931251200000001.c3qig4kemrm8.us-east-1.rds.amazonaws.com
+        url: jdbc:postgresql://terraform-20241218201931251200000001.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
         username: techchallenge_usr
         password: P0o9i8u7
+
+    jpa:
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
 
 server:
     port: 9090
     servlet:
         contextPath: /
+
+logging:
+    level:
+        root: DEBUG
 
 ---
 
@@ -53,17 +63,17 @@ spring:
         activate:
             on-profile: prod
 
+    datasource:
+        url: jdbc:postgresql://terraform-20241218201931251200000001.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
+        username: techchallenge_usr
+        password: P0o9i8u7
+
     jpa:
         properties:
             hibernate:
                 format_sql: false
                 show_sql: false
-
-    datasource:
-        url: jdbc:postgresql://terraform-20241218201931251200000001.c3qig4kemrm8.us-east-1.rds.amazonaws.com
-        username: techchallenge_usr
-        password: P0o9i8u7
-
+                
 server:
     port: 8080
     servlet:
