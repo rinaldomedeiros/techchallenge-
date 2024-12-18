@@ -79,5 +79,5 @@ spec:
   containers:
   - name: busybox
     image: busybox:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]
+    command: ["sh", "-c", "while true; do sleep 3600; done"]  # Mantém o pod ativo
   restartPolicy: Never
