@@ -37,7 +37,7 @@ spring:
             on-profile: dev
 
     datasource:
-        url: jdbc:postgresql://localhost:5433/techchallenge
+        url: jdbc:postgresql://techchallenge-rds.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
         username: techchallenge_usr
         password: P0o9i8u7
 
@@ -53,12 +53,12 @@ spring:
             on-profile: prod
     jpa:
         properties:
-        hibernate:
-            format_sql: false
-            show_sql: false
+            hibernate:
+                format_sql: false
+                show_sql: false
 
     datasource:
-        url: jdbc:postgresql://techchallenge-psql:5432/techchallenge
+        url: jdbc:postgresql://techchallenge-rds.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
         username: techchallenge_usr
         password: P0o9i8u7
 
@@ -66,6 +66,10 @@ server:
     port: 8080
     servlet:
         contextPath: /
+
+logging:
+    level:
+        root: INFO
 
 logging:
     level:

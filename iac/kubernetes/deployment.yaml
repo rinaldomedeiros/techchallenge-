@@ -17,30 +17,9 @@ spec:
       labels:
         app: backend
     spec:
-      initContainers:
-      - name: init-wait-for-db
-        image: postgres:16.2
-        command: ['sh', '-c', 'until pg_isready -h ${DB_HOST} -p ${DB_PORT} -U ${DB_USER}; do echo waiting for postgres; sleep 2; done;']
-        env:
-        - name: DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: backend-config
-              key: DB_HOST
-        - name: DB_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: backend-config
-              key: DB_PORT
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_USER
-      
       containers:
       - name: backend
-        image: samuraiel/techchallenge-backend:v1.1
+        image: sickbanger/techchallenge:latest
         ports:
         - containerPort: 8080
         command: ["java", "-jar"]
@@ -73,8 +52,8 @@ spec:
               key: DB_PASSWORD
         resources:
           limits:
-            cpu: 500m
-            memory: 1Gi
+            cpu: 300m
+            memory: 512Gi
           requests:
             cpu: 300m
             memory: 512Mi
@@ -87,71 +66,3 @@ spec:
           initialDelaySeconds: 20
           periodSeconds: 10
           failureThreshold: 10
-
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: techchallenge-psql
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgres
-  template:
-    metadata:
-      labels:
-        app: postgres
-    spec:
-      containers:
-      - name: postgres
-        image: postgres:16.2
-        env:
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: POSTGRES_USER
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: POSTGRES_PASSWORD
-        - name: POSTGRES_DB
-          value: "techchallenge"
-        ports:
-        - containerPort: 5432
-        volumeMounts:
-        - name: dbdata
-          mountPath: /var/lib/postgresql/data
-        - name: init-script
-          mountPath: /docker-entrypoint-initdb.d/init_database.sql
-          subPath: init_database.sql
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 300m
-            memory: 512Mi
-        livenessProbe:
-          exec:
-            command:
-              - pg_isready
-              - -h
-              - localhost
-              - -p
-              - "5432"
-              - -U
-              - postgres
-          initialDelaySeconds: 30
-          periodSeconds: 5
-      volumes:
-      - name: dbdata
-        persistentVolumeClaim:
-          claimName: postgres-pvc
-      - name: init-script
-        configMap:
-          name: backend-config

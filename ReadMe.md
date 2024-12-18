@@ -3,6 +3,11 @@
 ## Objetivo ##
 Este projeto tem como objetivo gerenciar todos os pedidos de uma lanchonete. Desde o início, com o cadastro de usuários, seleção de itens e pagamento, até o acompanhamento/atualização do status pela cozinha e notificação para retirada pelo cliente.
 
+### Como executar o Projeto via Action?
+- Basta ir em `Actions` e clicar primeiro no Workflow *Build and push docker images* e em seguida o executar com `Run Workflow`. 
+- Para realizar o deploy a idéia é a mesma, porém é necessário selecionar o Workflow de *Deploy to AWS EKS Cluster*.
+- *Esta Action utiliza as credenciais de AWS para realizar a comunicação com o cluster EKS, caso exista a necessidade de realizar o deploy em uma conta pessoal é necessário atualizar as variáveis de ambiente do repositório (AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY) com os respectivos valores de sua conta.*
+
 ### Como executar o Projeto Localmente?
 
 Para rodar o sistema localmente, você precisará de:
@@ -81,14 +86,6 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - **Escalabilidade:** O sistema utiliza um *Horizontal Pod Autoscaler* (`hpa.yaml`) para ajustar automaticamente a quantidade de réplicas dos pods conforme a carga de trabalho.
 - **Serviço** Utilizamos o `service.yaml`para expor o endpoint da nossa aplicação.
 - **Nuvem** Por último um exemplo de como ficaria esta arquitetura em uma nuvem da AWS. Sendo que a mesma arquitetura local apresentada, pode ser facilmente adaptada para rodar em providores de nuvem como a AWS por exemplo.
-
-### 2.2 Diagrama de Arquitetura:
-
-***Arquitetura Local***
-![Arquitetura Local do Kubernetes](./assets/local-arc.gif)
-
-***Arquitetura em Nuvem***
-![Arquitetura em Nuvem](./assets/cloud-arc.gif)
 
 # 📦 3. Domínios e Entidades
 
