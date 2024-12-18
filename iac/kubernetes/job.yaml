@@ -18,8 +18,7 @@ spec:
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
-              name: backend-config
-              key: DB_NAME
+              name: DB_NAME
         - name: DB_USER
           valueFrom:
             secretKeyRef:
@@ -36,6 +35,6 @@ spec:
       volumes:
       - name: init-scripts
         configMap:
-          name: backend-config
+          name: init-scripts
       restartPolicy: OnFailure
   backoffLimit: 3
