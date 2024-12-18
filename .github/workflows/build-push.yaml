@@ -23,5 +23,5 @@ jobs:
 
       - name: Push Docker images to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/testtechchallenge:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/testtechchallenge:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/techchallenge:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/techchallenge:${{ github.sha }}
