@@ -66,18 +66,3 @@ spec:
           initialDelaySeconds: 20
           periodSeconds: 10
           failureThreshold: 10
-
----
-
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox-pg-test
-  labels:
-    app: busybox-test
-spec:
-  containers:
-  - name: busybox
-    image: postgres:latest
-    command: ["sh", "-c", "sleep 3600"]  # Mantém o pod rodando por 1 hora
-  restartPolicy: Never
