@@ -3,12 +3,27 @@
 ## Objetivo ##
 Este projeto tem como objetivo gerenciar todos os pedidos de uma lanchonete. Desde o início, com o cadastro de usuários, seleção de itens e pagamento, até o acompanhamento/atualização do status pela cozinha e notificação para retirada pelo cliente.
 
-### Como executar o Projeto via Action?
+## Repositórios ##
+- [Autentificação](https://github.com/fernandeSamuel/techchallenge-lambda-authorizer)
+- [Banco de dados](https://github.com/randeldarlei/techchallenge-database)
+- [Infraestrutura](https://github.com/randeldarlei/techchallenge-iac)
+
+## Vídeos ##
+
+**Video Arquitetura - Fase 2**
+- Link do video : https://www.youtube.com/watch?v=c3hH8KvOHtg
+
+**Video Infraestrutura - Fase 3**
+- Link do video : em breve
+
+# ⏳ 2. Execução
+
+## Como executar o Projeto via Action?
 - Basta ir em `Actions` e clicar primeiro no Workflow *Build and push docker images* e em seguida o executar com `Run Workflow`. 
 - Para realizar o deploy a idéia é a mesma, porém é necessário selecionar o Workflow de *Deploy to AWS EKS Cluster*.
 - *Esta Action utiliza as credenciais de AWS para realizar a comunicação com o cluster EKS, caso exista a necessidade de realizar o deploy em uma conta pessoal é necessário atualizar as variáveis de ambiente do repositório (AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY) com os respectivos valores de sua conta.*
 
-### Como executar o Projeto Localmente?
+## Como executar o Projeto Localmente?
 
 Para rodar o sistema localmente, você precisará de:
 
@@ -73,11 +88,10 @@ k6 run stress-test
 Após isso uma janela irá abrir com o status do teste em tempo real. É possível acompanhar o status e a quantidade de Pods em execução com o comando `kubectl get pods -w` e também podemos ter uma visão a nível de recursos utilizados com o comando `kubectl top pods`.
 
 
-# 🌟  2. Arquitetura 
+# 🌟  3. Arquitetura 
 
 ## Visão Geral: ##
 O sistema é construído utilizando Java com Spring Boot, e a imagem Docker utilizada pelo `techchalenge-backend` é gerada automaticamente usando o `Dockerfile` e enviada ao *DockerHub*. No momento do apply dos manifestos, a imagem é baixada e o banco de dados é configurado automaticamente realizando também um *pull* de sua respectiva imagem.
-
 
 - **Resiliência:** Os Pods e configurações adicionais, como *Probes*, *Resources* e quantidades de *Replicas* são definidos no arquivo de `deployment.yaml`, seguindo as melhores práticas recomendadas para Kubernetes.
 - **Configuração** Todos os parâmetros de configurações necessários para o deploy da aplicação e do banco de dados são especificados no `configmap.yaml`.
@@ -87,9 +101,9 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - **Serviço** Utilizamos o `service.yaml`para expor o endpoint da nossa aplicação.
 - **Nuvem** Por último um exemplo de como ficaria esta arquitetura em uma nuvem da AWS. Sendo que a mesma arquitetura local apresentada, pode ser facilmente adaptada para rodar em providores de nuvem como a AWS por exemplo.
 
-# 📦 3. Domínios e Entidades
+# 📦 4. Domínios e Entidades
 
-## 3.1 Cliente ##
+## Cliente ##
 
 ### Atributos:
 - **id (Long):** Identificador único do cliente.
@@ -105,7 +119,7 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - Validar informações do cliente antes do armazenamento.
 - Buscar informações detalhadas do cliente.
 
-## 3.2 Produto 
+## Produto 
 
 ### Atributos:
 - **id (Long):** Identificador único do produto.
@@ -122,7 +136,7 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - Buscar produtos por categoria.
 - Validar as informações do produto antes de salvar.
 
-## 3.3 Pedido
+## Pedido
 
 ### Atributos:
 - **id (Long):** Identificador único do pedido.
@@ -141,7 +155,7 @@ O sistema é construído utilizando Java com Spring Boot, e a imagem Docker util
 - Calcular o valor total do pedido com base nos itens incluídos.
 - Buscar pedidos que não foram finalizados ordenados por status e do mais antigo para o mais novo.
 
-## 3.4 Item
+## Item
 
 ### Atributos:
 - **id (Long):** Identificador único do item de pedido.
@@ -173,5 +187,3 @@ Este tópico apresenta o Swagger, que contêm a documentação da API e o link d
 **🌐 Swagger**
 - Você pode acessar a documentação interativa da API via Swagger através do passo **"Exponha o Serviço Backend"**.
 
-**Video da Arquitetura**
-- Link do video : https://www.youtube.com/watch?v=c3hH8KvOHtg
