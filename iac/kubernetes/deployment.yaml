@@ -78,6 +78,6 @@ metadata:
 spec:
   containers:
   - name: busybox
-    image: busybox:latest
-    command: ["sh", "-c", "while true; do sleep 3600; done"]  # Mantém o pod ativo
+    image: postgres:latest
+    command: ["sh", "-c", "sleep 3600"]  # Mantém o pod rodando por 1 hora
   restartPolicy: Never
