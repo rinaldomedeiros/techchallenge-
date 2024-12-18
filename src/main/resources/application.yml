@@ -37,7 +37,7 @@ spring:
             on-profile: dev
 
     datasource:
-        url: jdbc:postgresql://techchallenge-rds.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
+        url: jdbc:postgresql://terraform-20241218201931251200000001.c3qig4kemrm8.us-east-1.rds.amazonaws.com
         username: techchallenge_usr
         password: P0o9i8u7
 
@@ -60,7 +60,7 @@ spring:
                 show_sql: false
 
     datasource:
-        url: jdbc:postgresql://techchallenge-rds.c3qig4kemrm8.us-east-1.rds.amazonaws.com:5432/techchallenge
+        url: jdbc:postgresql://terraform-20241218201931251200000001.c3qig4kemrm8.us-east-1.rds.amazonaws.com
         username: techchallenge_usr
         password: P0o9i8u7
 
